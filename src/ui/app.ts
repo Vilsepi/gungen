@@ -5,6 +5,7 @@ import {
   weaponCategories,
 } from "../core/types";
 import { createDefaultSeeds } from "../generation/defaults";
+import { createWeaponName } from "../generation/weapon-name";
 import { renderWeaponSvg } from "../render/weapon/render-weapon";
 import { renderControls } from "./controls";
 import { createInitialState, createStore, Store } from "./state";
@@ -14,6 +15,13 @@ const seedFields = [
   "partSizeSeed",
   "aestheticDetailSeed",
 ] as const;
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
 
 function isWeaponCategory(value: string | null): value is WeaponCategory {
   return (
@@ -186,6 +194,7 @@ function bindControls(root: HTMLElement, store: Store): void {
 function renderApp(root: HTMLElement, store: Store): void {
   const state = store.getState();
   const svg = renderWeaponSvg(state.weapon, { debug: state.debug });
+  const weaponName = createWeaponName(state.seeds);
   root.innerHTML = `
     <div class="shell">
       <header class="hero">
@@ -199,7 +208,10 @@ function renderApp(root: HTMLElement, store: Store): void {
         <aside class="panel controls">${renderControls(store)}</aside>
         <section class="preview">
           <div class="panel canvas">
-            <div class="canvas-frame">${svg}</div>
+            <div class="canvas-stage">
+              <h2 class="weapon-name">${escapeHtml(weaponName)}</h2>
+              <div class="canvas-frame">${svg}</div>
+            </div>
           </div>
           <div class="panel summary">${renderSummary(store)}</div>
         </section>

@@ -159,6 +159,12 @@ select {
   overflow: hidden;
 }
 
+.canvas-stage {
+  position: relative;
+  min-height: 500px;
+  height: 100%;
+}
+
 .canvas-frame {
   height: 100%;
   min-height: 500px;
@@ -179,6 +185,23 @@ select {
     );
   display: grid;
   place-items: center;
+}
+
+.weapon-name {
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  z-index: 1;
+  margin: 0;
+  max-width: min(45rem, calc(100% - 1.5rem));
+  padding: 0.1rem 0.1rem;
+  color: #d9ecfb;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(2, 7, 11, 0.55);
 }
 
 .canvas-frame svg {
