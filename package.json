@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite src",
     "build": "vite build src --outDir ../dist --emptyOutDir",
-    "preview": "vite preview src --outDir ../dist"
+    "preview": "vite preview src --outDir ../dist",
+    "format": "prettier --write \"src/**/*.{js,css,html}\" \"*.{json,md}\""
   },
   "devDependencies": {
+    "prettier": "^3.8.1",
     "vite": "^7.3.1"
   }
 }
