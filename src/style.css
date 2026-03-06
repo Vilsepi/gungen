@@ -1,7 +1,7 @@
 :root {
-  --bg: #0b0c0c;
+  --bg: #070707;
   --panel: rgba(26, 36, 45, 0.86);
-  --ink: #daddc0;
+  --ink: #ddded2;
   --muted: #8ea5b6;
   --accent: #97bedd;
   --line: rgba(166, 210, 242, 0.22);
@@ -22,15 +22,15 @@ body {
   background:
     radial-gradient(
       circle at top left,
-      rgba(126, 173, 211, 0.16),
+      rgba(70, 95, 115, 0.16),
       transparent 32%
     ),
     radial-gradient(
       circle at bottom right,
-      rgba(67, 96, 118, 0.24),
+      rgba(37, 51, 62, 0.24),
       transparent 36%
     ),
-    linear-gradient(180deg, #2c3741 0%, var(--bg) 52%, #161d25 100%);
+    linear-gradient(180deg, #13171b 0%, var(--bg) 52%, #161d25 100%);
 }
 
 button,
