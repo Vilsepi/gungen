@@ -12,8 +12,7 @@ export interface AppState {
 
 export type StateListener = (state: AppState) => void;
 
-export function createInitialState(): AppState {
-  const seeds = createDefaultSeeds();
+export function createInitialState(seeds = createDefaultSeeds()): AppState {
   return {
     seeds,
     debug: false,

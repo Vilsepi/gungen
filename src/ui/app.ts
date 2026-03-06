@@ -1,7 +1,58 @@
-import { WeaponSummaryItem } from "../core/types";
+import {
+  SeedBundle,
+  WeaponCategory,
+  WeaponSummaryItem,
+  weaponCategories,
+} from "../core/types";
+import { createDefaultSeeds } from "../generation/defaults";
 import { renderWeaponSvg } from "../render/weapon/render-weapon";
 import { renderControls } from "./controls";
-import { createStore, Store } from "./state";
+import { createInitialState, createStore, Store } from "./state";
+
+const seedFields = [
+  "dataModelSeed",
+  "partSizeSeed",
+  "aestheticDetailSeed",
+] as const;
+
+function isWeaponCategory(value: string | null): value is WeaponCategory {
+  return (
+    value !== null &&
+    weaponCategories.includes(value as WeaponCategory)
+  );
+}
+
+function readSeedsFromUrl(): SeedBundle | null {
+  const params = new URLSearchParams(window.location.search);
+  const categoryParam = params.get("category");
+  const hasAnySeedParam = seedFields.some((field) => params.has(field));
+  const hasCategoryParam = isWeaponCategory(categoryParam);
+
+  if (!hasCategoryParam && !hasAnySeedParam) {
+    return null;
+  }
+
+  const fallback = createDefaultSeeds(
+    hasCategoryParam ? categoryParam : undefined,
+  );
+
+  return {
+    category: hasCategoryParam ? categoryParam : fallback.category,
+    dataModelSeed: params.get("dataModelSeed") ?? fallback.dataModelSeed,
+    partSizeSeed: params.get("partSizeSeed") ?? fallback.partSizeSeed,
+    aestheticDetailSeed:
+      params.get("aestheticDetailSeed") ?? fallback.aestheticDetailSeed,
+  };
+}
+
+function syncUrl(seeds: SeedBundle): void {
+  const url = new URL(window.location.href);
+  url.searchParams.set("category", seeds.category);
+  url.searchParams.set("dataModelSeed", seeds.dataModelSeed);
+  url.searchParams.set("partSizeSeed", seeds.partSizeSeed);
+  url.searchParams.set("aestheticDetailSeed", seeds.aestheticDetailSeed);
+  window.history.replaceState(null, "", url);
+}
 
 function formatNumber(value: number): string {
   return Intl.NumberFormat("en", { maximumFractionDigits: 0 }).format(value);
@@ -89,11 +140,6 @@ function bindControls(root: HTMLElement, store: Store): void {
     );
   });
 
-  const seedFields = [
-    "dataModelSeed",
-    "partSizeSeed",
-    "aestheticDetailSeed",
-  ] as const;
   for (const field of seedFields) {
     root
       .querySelector<HTMLInputElement>(`#${field}`)
@@ -144,11 +190,9 @@ function renderApp(root: HTMLElement, store: Store): void {
     <div class="shell">
       <header class="hero">
         <div>
-          <span class="eyebrow">Procedural SVG Weapons</span>
-          <h1>GunGen</h1>
-          <p>Deterministic firearm UI art generation with separate seeds for bill of materials, part sizing, and aesthetic detail.</p>
+          <span class="eyebrow">Procedural weapon picker</span>
+          <h1>Gungen</h1>
         </div>
-        <p class="footnote">The drawing is composed from typed parts, validated as a connected graph, then rendered as a left-facing SVG.</p>
       </header>
 
       <main class="grid">
@@ -166,8 +210,13 @@ function renderApp(root: HTMLElement, store: Store): void {
 }
 
 export function mountApp(root: HTMLElement): void {
-  const store = createStore();
+  const initialSeeds = readSeedsFromUrl();
+  const store = createStore(
+    initialSeeds ? createInitialState(initialSeeds) : createInitialState(),
+  );
+
   store.subscribe(() => {
+    syncUrl(store.getState().seeds);
     renderApp(root, store);
   });
 }

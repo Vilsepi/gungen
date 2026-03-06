@@ -1,21 +1,8 @@
 # GunGen
 
-Procedural 2D firearm silhouette generator.
+Procedural firearm silhouette generator.
 
-## Supported classes
-
-- Pistol
-- SMG
-- Assault rifle
-- Battle rifle
-- DMR
-
-## Current features
-
-- Seed-based deterministic generation
-- Mandatory core parts: chassis, barrel, magazine, pistol grip
-- Weighted optional attachments: optics, flashlights, lasers, muzzle devices
-- SVG-based vector rendering with line work and light fills
+[vilsepi.github.io/gungen](https://vilsepi.github.io/gungen/)
 
 ## Usage
 
