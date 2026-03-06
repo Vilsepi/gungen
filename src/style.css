@@ -137,6 +137,23 @@ select {
   gap: 0.5rem;
 }
 
+.action-stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.action-stack .primary {
+  width: 100%;
+}
+
+.utility-section {
+  margin-top: 1.5rem;
+}
+
+.utility-actions {
+  margin-top: 0.8rem;
+}
+
 .seed-row {
   display: grid;
   grid-template-columns: 1fr auto;

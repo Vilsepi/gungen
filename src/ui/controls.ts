@@ -45,8 +45,14 @@ export function renderControls(store: Store): string {
     </div>
 
     <div class="section">
-      <div class="inline-actions">
+      <div class="action-stack">
         <button type="button" class="primary" data-action="reroll-all">Reroll All</button>
+      </div>
+    </div>
+
+    <div class="section utility-section">
+      <span class="eyebrow">Utilities</span>
+      <div class="inline-actions utility-actions">
         <button type="button" data-action="toggle-debug">${state.debug ? "Hide Debug" : "Show Debug"}</button>
         <button type="button" data-action="copy-seeds">Copy Seeds</button>
         <button type="button" data-action="export-svg">Export SVG</button>
