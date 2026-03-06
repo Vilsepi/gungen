@@ -24,10 +24,7 @@ function escapeHtml(value: string): string {
 }
 
 function isWeaponCategory(value: string | null): value is WeaponCategory {
-  return (
-    value !== null &&
-    weaponCategories.includes(value as WeaponCategory)
-  );
+  return value !== null && weaponCategories.includes(value as WeaponCategory);
 }
 
 function readSeedsFromUrl(): SeedBundle | null {

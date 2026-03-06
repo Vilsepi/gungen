@@ -3,7 +3,7 @@
   --panel: rgba(26, 36, 45, 0.86);
   --ink: #daddc0;
   --muted: #8ea5b6;
-  --accent: #8dc2ec;
+  --accent: #97bedd;
   --line: rgba(166, 210, 242, 0.22);
   --radius: 4px;
   --shadow: 0 22px 60px rgba(2, 7, 11, 0.42);
@@ -188,11 +188,7 @@ select {
   border-radius: var(--radius);
   border: 1px solid rgba(166, 210, 242, 0.12);
   background:
-    linear-gradient(
-      180deg,
-      rgba(35, 47, 58, 0.96),
-      rgba(20, 29, 37, 0.98)
-    ),
+    linear-gradient(180deg, rgba(35, 47, 58, 0.96), rgba(20, 29, 37, 0.98)),
     repeating-linear-gradient(
       90deg,
       transparent,

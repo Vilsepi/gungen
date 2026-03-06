@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import { baseDimensionRanges, partDensities } from "../../core/constants";
-import { partKinds, PartKind, weaponCategories, WeaponCategory } from "../../core/types";
+import {
+  partKinds,
+  PartKind,
+  weaponCategories,
+  WeaponCategory,
+} from "../../core/types";
 import { sizeParts } from "../../generation/size-parts";
 import { createPrng } from "../../random/prng";
 import {
@@ -36,13 +41,21 @@ const realisticRanges: Partial<Record<PartKind, PartRealismRange>> = {
   },
 };
 
-function createSizedPart(kind: PartKind, category: WeaponCategory, seed: number) {
+function createSizedPart(
+  kind: PartKind,
+  category: WeaponCategory,
+  seed: number,
+) {
   const part = new partConstructors[kind](`${kind}-${category}-${seed}`);
   sizeParts([part], category, createPrng(seed));
   return part;
 }
 
-function expectInRange(value: number, range: NumericRange, label: string): void {
+function expectInRange(
+  value: number,
+  range: NumericRange,
+  label: string,
+): void {
   expect(
     value,
     `${label} expected to be within ${range.min}-${range.max}, got ${value}`,
@@ -73,39 +86,36 @@ describe("part factory weights", () => {
     expect(Number(flashlight.weight)).toBeGreaterThan(Number(handStop.weight));
   });
 
-  it(
-    "keeps randomly generated part dimensions and weights within realistic ranges",
-    () => {
-      const sampleSeeds = [11, 97, 451, 1337, 9001];
+  it("keeps randomly generated part dimensions and weights within realistic ranges", () => {
+    const sampleSeeds = [11, 97, 451, 1337, 9001];
 
-      for (const kind of partKinds) {
-        const configuredRange = realisticRanges[kind];
-        if (!configuredRange) {
-          continue;
-        }
+    for (const kind of partKinds) {
+      const configuredRange = realisticRanges[kind];
+      if (!configuredRange) {
+        continue;
+      }
 
-        for (const category of weaponCategories) {
-          for (const seed of sampleSeeds) {
-            const part = createSizedPart(kind, category, seed);
+      for (const category of weaponCategories) {
+        for (const seed of sampleSeeds) {
+          const part = createSizedPart(kind, category, seed);
 
-            expectInRange(
-              Number(part.dimensionsMm.length),
-              configuredRange.lengthMm,
-              `${kind} length in ${category}`,
-            );
-            expectInRange(
-              Number(part.dimensionsMm.width),
-              configuredRange.widthMm,
-              `${kind} width in ${category}`,
-            );
-            expectInRange(
-              Number(part.weight),
-              configuredRange.weightG,
-              `${kind} weight in ${category}`,
-            );
-          }
+          expectInRange(
+            Number(part.dimensionsMm.length),
+            configuredRange.lengthMm,
+            `${kind} length in ${category}`,
+          );
+          expectInRange(
+            Number(part.dimensionsMm.width),
+            configuredRange.widthMm,
+            `${kind} width in ${category}`,
+          );
+          expectInRange(
+            Number(part.weight),
+            configuredRange.weightG,
+            `${kind} weight in ${category}`,
+          );
         }
       }
-    },
-  );
+    }
+  });
 });

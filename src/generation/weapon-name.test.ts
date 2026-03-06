@@ -50,6 +50,8 @@ describe("createWeaponName", () => {
       aestheticDetailSeed: "delta",
     };
 
-    expect(createWeaponName(baseSeeds)).not.toBe(createWeaponName(changedSeeds));
+    expect(createWeaponName(baseSeeds)).not.toBe(
+      createWeaponName(changedSeeds),
+    );
   });
 });
