@@ -8,10 +8,10 @@ export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
     maxWidth: mm(82),
   },
   barrel: {
-    minLength: mm(70),
+    minLength: mm(5),
     maxLength: mm(640),
-    minWidth: mm(12),
-    maxWidth: mm(28),
+    minWidth: mm(10),
+    maxWidth: mm(25),
   },
   magwell: {
     minLength: mm(56),
@@ -29,7 +29,7 @@ export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
     minLength: mm(76),
     maxLength: mm(140),
     minWidth: mm(26),
-    maxWidth: mm(42),
+    maxWidth: mm(50),
   },
   handguard: {
     minLength: mm(0),
@@ -82,19 +82,20 @@ export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
 };
 
 export const partDensities: Record<PartKind, number> = {
-  receiver: 0.012,
-  barrel: 0.01,
-  magwell: 0.011,
-  magazine: 0.009,
-  pistolGrip: 0.007,
-  handguard: 0.008,
-  stock: 0.007,
-  optic: 0.009,
-  laser: 0.006,
-  flashlight: 0.006,
-  muzzleDevice: 0.01,
-  frontGrip: 0.007,
-  handStop: 0.006,
+  receiver: 0.04,
+  barrel: 0.06,
+  magwell: 0.04,
+  magazine: 0.04,
+  pistolGrip: 0.04,
+
+  handguard: 0.05,
+  stock: 0.05,
+  optic: 0.05,
+  laser: 0.05,
+  flashlight: 0.05,
+  muzzleDevice: 0.05,
+  frontGrip: 0.05,
+  handStop: 0.05,
 };
 
 export const corePartKinds: readonly PartKind[] = [

@@ -7,13 +7,15 @@
     "dev": "vite src",
     "build": "vite build src --outDir ../dist --emptyOutDir",
     "preview": "vite preview src --outDir ../dist",
+    "test": "vitest run",
     "lint": "npm run check && prettier --check \"src/**/*.{ts,js,css,html}\" \"*.{json,md}\"",
     "check": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,js,css,html}\" \"*.{json,md}\""
   },
   "devDependencies": {
     "prettier": "^3.8.1",
-    "typescript": "^5.9.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18",
     "vite": "^7.3.1"
   }
 }
