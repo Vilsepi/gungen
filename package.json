@@ -1,0 +1,14 @@
+{
+  "name": "gungen",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite src",
+    "build": "vite build src --outDir ../dist --emptyOutDir",
+    "preview": "vite preview src --outDir ../dist"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}
