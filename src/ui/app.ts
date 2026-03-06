@@ -102,23 +102,15 @@ function copySeeds(store: Store): void {
 function renderSummary(store: Store): string {
   const state = store.getState();
   const summaryItems = getSummaryItems(store);
-  const attachments = summaryItems.filter(
-    (item) =>
-      !["receiver", "barrel", "magwell", "magazine", "pistolGrip"].includes(
-        item.kind,
-      ),
-  );
 
   return `
     <div class="summary-grid">
-      <div class="stat"><span class="stat-label">Category</span><span class="stat-value">${state.weapon.category}</span></div>
-      <div class="stat"><span class="stat-label">Parts</span><span class="stat-value">${summaryItems.length}</span></div>
       <div class="stat"><span class="stat-label">Weight</span><span class="stat-value">${formatDecimal(Number(state.weapon.metrics.totalWeight) / 1000, 2)} kg</span></div>
       <div class="stat"><span class="stat-label">Dimensions</span><span class="stat-value">${formatDecimal(Number(state.weapon.metrics.totalLength) / 10, 1)} x ${formatDecimal(Number(state.weapon.metrics.totalHeight) / 10, 1)} cm</span></div>
     </div>
     <div class="list-grid">
       <div class="list-card">
-        <h3>Bill of Materials</h3>
+        <h3>${state.weapon.category}</h3>
         <ul>
           ${summaryItems
             .map(
@@ -126,18 +118,6 @@ function renderSummary(store: Store): string {
                 `<li>${item.displayName}: ${formatNumber(item.length)} x ${formatNumber(item.width)} mm, ${formatNumber(item.weight)} g</li>`,
             )
             .join("")}
-        </ul>
-      </div>
-      <div class="list-card">
-        <h3>Selected Attachments</h3>
-        <ul>
-          ${
-            attachments.length > 0
-              ? attachments
-                  .map((item) => `<li>${item.displayName}</li>`)
-                  .join("")
-              : "<li>No optional attachments</li>"
-          }
         </ul>
       </div>
     </div>
