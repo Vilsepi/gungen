@@ -7,6 +7,7 @@
     "dev": "vite src",
     "build": "vite build src --outDir ../dist --emptyOutDir",
     "preview": "vite preview src --outDir ../dist",
+    "lint": "npm run check && prettier --check \"src/**/*.{ts,js,css,html}\" \"*.{json,md}\"",
     "check": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,js,css,html}\" \"*.{json,md}\""
   },
