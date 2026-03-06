@@ -142,8 +142,26 @@ select {
   gap: 0.75rem;
 }
 
+.control-actions {
+  margin-top: 0.8rem;
+}
+
 .action-stack .primary {
   width: 100%;
+}
+
+.control-subsection {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(166, 210, 242, 0.12);
+}
+
+.subheading {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .utility-section {

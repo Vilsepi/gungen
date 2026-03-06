@@ -41,12 +41,12 @@ export function renderControls(store: Store): string {
         <label for="category">Category</label>
         <select id="category" name="category">${options}</select>
       </div>
-      ${seedMarkup}
-    </div>
-
-    <div class="section">
-      <div class="action-stack">
-        <button type="button" class="primary" data-action="reroll-all">Reroll All</button>
+      <div class="action-stack control-actions">
+        <button type="button" class="primary" data-action="reroll-all">Randomize</button>
+      </div>
+      <div class="control-subsection">
+        <span class="subheading">Refinement</span>
+        ${seedMarkup}
       </div>
     </div>
 
