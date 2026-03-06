@@ -1,60 +1,13 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GunGen — Procedural Firearms</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <main>
-    <section class="panel hero">
-      <div>
-        <div class="eyebrow">Procedural 2D weapon art</div>
-        <h1>GunGen</h1>
-      </div>
-
-      <div class="controls">
-        <div class="field">
-          <label for="weaponClass">Weapon class</label>
-          <select id="weaponClass">
-            <option value="any">Any class</option>
-            <option value="pistol">Semi-automatic pistol</option>
-            <option value="smg">SMG</option>
-            <option value="assault">Assault rifle</option>
-            <option value="battle">Battle rifle</option>
-            <option value="dmr">DMR</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="seedInput">Seed</label>
-          <input id="seedInput" name="seed" type="text" placeholder="Type a seed or randomize" spellcheck="false">
-        </div>
-        <div class="field">
-          <label for="randomizeButton">Generate</label>
-          <button id="randomizeButton" type="button">Randomize weapon</button>
-        </div>
-      </div>
-
-      <div class="meta">
-        <span class="pill" id="classPill">Class: —</span>
-        <span class="pill" id="seedPill">Seed: —</span>
-        <span class="pill" id="attachmentPill">Attachments: —</span>
-      </div>
-    </section>
-
-    <section class="panel viewport">
-      <div class="canvas-frame">
-        <svg id="weaponSvg" viewBox="0 0 1000 420" role="img" aria-label="Generated firearm silhouette"></svg>
-      </div>
-    </section>
-
-    <p class="footer-note">
-      The generator uses broad archetype rules rather than hardcoded real-world templates. The same <code>seed</code>
-      and class selection always reproduce the same silhouette.
-    </p>
-  </main>
-
-  <script type="module" src="./main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GunGen</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="./main.ts"></script>
+  </body>
 </html>

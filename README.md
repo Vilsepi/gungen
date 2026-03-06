@@ -1,4 +1,3 @@
-
 # GunGen
 
 Procedural 2D firearm silhouette generator.

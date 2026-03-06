@@ -1,0 +1,71 @@
+import { PartKind, WeaponCategory } from "../core/types";
+
+export const categoryAttachmentWeights: Record<
+  WeaponCategory,
+  Partial<Record<PartKind, number>>
+> = {
+  Pistol: {
+    optic: 0.45,
+    muzzleDevice: 0.4,
+    handguard: 0.15,
+    flashlight: 0.3,
+    laser: 0.22,
+  },
+  SMG: {
+    stock: 0.9,
+    optic: 0.6,
+    muzzleDevice: 0.45,
+    handguard: 0.75,
+    flashlight: 0.35,
+    laser: 0.3,
+    frontGrip: 0.25,
+    handStop: 0.15,
+  },
+  Carbine: {
+    stock: 1,
+    optic: 0.68,
+    muzzleDevice: 0.48,
+    handguard: 0.92,
+    flashlight: 0.3,
+    laser: 0.25,
+    frontGrip: 0.24,
+    handStop: 0.2,
+  },
+  AssaultRifle: {
+    stock: 1,
+    optic: 0.8,
+    muzzleDevice: 0.6,
+    handguard: 1,
+    flashlight: 0.44,
+    laser: 0.34,
+    frontGrip: 0.3,
+    handStop: 0.24,
+  },
+  BattleRifle: {
+    stock: 1,
+    optic: 0.72,
+    muzzleDevice: 0.55,
+    handguard: 1,
+    flashlight: 0.22,
+    laser: 0.12,
+    frontGrip: 0.16,
+    handStop: 0.22,
+  },
+  DMR: {
+    stock: 1,
+    optic: 0.98,
+    muzzleDevice: 0.58,
+    handguard: 1,
+    flashlight: 0.12,
+    laser: 0.08,
+    handStop: 0.2,
+  },
+  Sniper: {
+    stock: 1,
+    optic: 1,
+    muzzleDevice: 0.2,
+    handguard: 0.82,
+    flashlight: 0.05,
+    laser: 0.04,
+  },
+};
