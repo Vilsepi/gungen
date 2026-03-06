@@ -61,11 +61,11 @@ export function renderWeaponSvg(
   const debug = options.debug ? renderDebug(weapon.layout) : "";
   const drawing = `
     <style>
-      .part { fill: rgba(242, 236, 223, 0.94); stroke: #1d1b18; stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+      .part { fill: rgba(60, 75, 89, 0.94); stroke: #a9d7fb; stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
       .part line, .part path, .part rect, .part circle { vector-effect: non-scaling-stroke; }
-      .optic { fill: rgba(209, 218, 221, 0.94); }
-      .muzzle-device, .barrel { fill: rgba(230, 227, 218, 0.94); }
-      .laser, .flashlight { fill: rgba(225, 220, 207, 0.95); }
+      .optic { fill: rgba(92, 111, 126, 0.94); }
+      .muzzle-device, .barrel { fill: rgba(74, 91, 108, 0.94); }
+      .laser, .flashlight { fill: rgba(82, 101, 118, 0.95); }
       .debug { vector-effect: non-scaling-stroke; }
     </style>
     ${content}

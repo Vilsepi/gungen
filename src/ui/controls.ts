@@ -51,7 +51,7 @@ export function renderControls(store: Store): string {
         <button type="button" data-action="copy-seeds">Copy Seeds</button>
         <button type="button" data-action="export-svg">Export SVG</button>
       </div>
-      <p class="footnote">Each seed drives a separate deterministic stage: BOM, dimensions, and micro-detail. Category and seeds are mirrored into the URL so each build can be shared directly.</p>
+      <!--<p class="footnote"></p>-->
     </div>
   `;
 }

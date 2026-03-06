@@ -5,8 +5,8 @@ export function renderDebug(parts: LayoutPart[]): string {
     .map(
       (part) => `
         <g class="debug">
-          <rect x="${part.x - part.length / 2}" y="${part.y - part.width / 2}" width="${part.length}" height="${part.width}" fill="none" stroke="rgba(162, 75, 42, 0.35)" stroke-dasharray="6 4" />
-          <circle cx="${part.x}" cy="${part.y}" r="3" fill="rgba(51, 92, 103, 0.6)" />
+          <rect x="${part.x - part.length / 2}" y="${part.y - part.width / 2}" width="${part.length}" height="${part.width}" fill="none" stroke="rgba(169, 215, 251, 0.45)" stroke-dasharray="6 4" />
+          <circle cx="${part.x}" cy="${part.y}" r="3" fill="rgba(169, 215, 251, 0.8)" />
         </g>
       `,
     )

@@ -1,14 +1,13 @@
 :root {
-  --bg: #f4efe4;
-  --bg-strong: #ebe2d0;
-  --panel: rgba(255, 251, 244, 0.9);
-  --ink: #1d1b18;
-  --muted: #6c655b;
-  --accent: #a24b2a;
-  --accent-2: #335c67;
-  --line: rgba(29, 27, 24, 0.12);
-  --shadow: 0 18px 50px rgba(64, 47, 29, 0.12);
-  color-scheme: light;
+  --bg: #0b0c0c;
+  --panel: rgba(26, 36, 45, 0.86);
+  --ink: #daddc0;
+  --muted: #8ea5b6;
+  --accent: #8dc2ec;
+  --line: rgba(166, 210, 242, 0.22);
+  --radius: 4px;
+  --shadow: 0 22px 60px rgba(2, 7, 11, 0.42);
+  color-scheme: dark;
   font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
 }
 
@@ -23,15 +22,15 @@ body {
   background:
     radial-gradient(
       circle at top left,
-      rgba(162, 75, 42, 0.16),
+      rgba(126, 173, 211, 0.16),
       transparent 32%
     ),
     radial-gradient(
       circle at bottom right,
-      rgba(51, 92, 103, 0.18),
+      rgba(67, 96, 118, 0.24),
       transparent 36%
     ),
-    linear-gradient(180deg, #faf5ea 0%, var(--bg) 100%);
+    linear-gradient(180deg, #2c3741 0%, var(--bg) 52%, #161d25 100%);
 }
 
 button,
@@ -42,9 +41,9 @@ select {
 
 button {
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius);
   padding: 0.6rem 0.95rem;
-  background: white;
+  background: rgba(40, 54, 65, 0.94);
   color: var(--ink);
   cursor: pointer;
   transition:
@@ -55,12 +54,13 @@ button {
 
 button:hover {
   transform: translateY(-1px);
-  border-color: rgba(29, 27, 24, 0.28);
+  border-color: rgba(166, 210, 242, 0.44);
+  background: rgba(48, 66, 79, 0.98);
 }
 
 button.primary {
   background: var(--accent);
-  color: white;
+  color: #10202e;
   border-color: transparent;
 }
 
@@ -68,9 +68,10 @@ input,
 select {
   width: 100%;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 0.72rem 0.8rem;
-  background: rgba(255, 255, 255, 0.84);
+  background: rgba(18, 27, 35, 0.84);
+  color: var(--ink);
 }
 
 .shell {
@@ -108,9 +109,9 @@ select {
 
 .panel {
   background: var(--panel);
-  border: 1px solid rgba(29, 27, 24, 0.08);
+  border: 1px solid rgba(166, 210, 242, 0.12);
   box-shadow: var(--shadow);
-  border-radius: 24px;
+  border-radius: var(--radius);
   backdrop-filter: blur(14px);
 }
 
@@ -121,7 +122,7 @@ select {
 .section + .section {
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(29, 27, 24, 0.08);
+  border-top: 1px solid rgba(166, 210, 242, 0.12);
 }
 
 .control-row {
@@ -161,20 +162,20 @@ select {
 .canvas-frame {
   height: 100%;
   min-height: 500px;
-  border-radius: 18px;
-  border: 1px solid rgba(29, 27, 24, 0.08);
+  border-radius: var(--radius);
+  border: 1px solid rgba(166, 210, 242, 0.12);
   background:
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.92),
-      rgba(245, 238, 227, 0.95)
+      rgba(35, 47, 58, 0.96),
+      rgba(20, 29, 37, 0.98)
     ),
     repeating-linear-gradient(
       90deg,
       transparent,
       transparent 40px,
-      rgba(29, 27, 24, 0.03) 40px,
-      rgba(29, 27, 24, 0.03) 41px
+      rgba(166, 210, 242, 0.05) 40px,
+      rgba(166, 210, 242, 0.05) 41px
     );
   display: grid;
   place-items: center;
@@ -197,9 +198,9 @@ select {
 
 .stat {
   padding: 0.85rem;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(29, 27, 24, 0.06);
+  border-radius: var(--radius);
+  background: rgba(37, 50, 61, 0.72);
+  border: 1px solid rgba(166, 210, 242, 0.1);
 }
 
 .stat-label {
@@ -226,9 +227,9 @@ select {
 
 .list-card {
   padding: 0.9rem;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(29, 27, 24, 0.06);
+  border-radius: var(--radius);
+  background: rgba(37, 50, 61, 0.72);
+  border: 1px solid rgba(166, 210, 242, 0.1);
 }
 
 .list-card h3 {
