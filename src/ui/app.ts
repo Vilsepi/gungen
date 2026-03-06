@@ -67,6 +67,15 @@ function formatDecimal(value: number, maximumFractionDigits: number): string {
   return Intl.NumberFormat("en", { maximumFractionDigits }).format(value);
 }
 
+function formatCurrency(valueCents: number): string {
+  return Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(valueCents / 100);
+}
+
 function getSummaryItems(store: Store): WeaponSummaryItem[] {
   return store.getState().weapon.parts.map((part) => ({
     id: part.id,
@@ -103,6 +112,7 @@ function renderSummary(store: Store): string {
   return `
     <div class="summary-grid">
       <div class="stat"><span class="stat-label">Weight</span><span class="stat-value">${formatDecimal(Number(state.weapon.metrics.totalWeight) / 1000, 2)} kg</span></div>
+      <div class="stat"><span class="stat-label">Price</span><span class="stat-value">${formatCurrency(Number(state.weapon.metrics.totalPrice))}</span></div>
       <div class="stat"><span class="stat-label">Dimensions</span><span class="stat-value">${formatDecimal(Number(state.weapon.metrics.totalLength) / 10, 1)} x ${formatDecimal(Number(state.weapon.metrics.totalHeight) / 10, 1)} cm</span></div>
     </div>
     <div class="list-grid">

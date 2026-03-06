@@ -1,6 +1,7 @@
-import { grams, LayoutPart, mm, WeaponMetrics } from "../core/types";
+import { cents, grams, LayoutPart, mm, WeaponMetrics } from "../core/types";
 import { Weapon } from "../domain/bom/weapon";
 import { Part } from "../domain/parts";
+import { computePartPrice } from "../domain/physics/price";
 import { computeBounds } from "./normalize-layout";
 
 function partMap(parts: Part[]): Map<string, Part> {
@@ -218,10 +219,14 @@ export function layoutWeapon(
   }
 
   const bounds = computeBounds(layout);
+  const totalWeight = parts.reduce((sum, part) => sum + Number(part.weight), 0);
+  const totalPrice = parts.reduce(
+    (sum, part) => sum + Number(computePartPrice(part.kind, part.weight)),
+    0,
+  );
   const metrics: WeaponMetrics = {
-    totalWeight: grams(
-      parts.reduce((sum, part) => sum + Number(part.weight), 0),
-    ),
+    totalWeight: grams(totalWeight),
+    totalPrice: cents(totalPrice),
     totalLength: mm(bounds.maxX - bounds.minX),
     totalHeight: mm(bounds.maxY - bounds.minY),
   };

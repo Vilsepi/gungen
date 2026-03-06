@@ -98,6 +98,22 @@ export const partDensities: Record<PartKind, number> = {
   handStop: 0.05,
 };
 
+export const partPricePerGramCents: Record<PartKind, number> = {
+  receiver: 220,
+  barrel: 180,
+  magwell: 90,
+  magazine: 65,
+  pistolGrip: 75,
+  handguard: 95,
+  stock: 80,
+  optic: 320,
+  laser: 260,
+  flashlight: 140,
+  muzzleDevice: 160,
+  frontGrip: 85,
+  handStop: 70,
+};
+
 export const corePartKinds: readonly PartKind[] = [
   "receiver",
   "barrel",

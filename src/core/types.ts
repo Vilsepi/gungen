@@ -48,6 +48,7 @@ type Brand<T, Name extends string> = T & { readonly __brand: Name };
 export type Millimeters = Brand<number, "Millimeters">;
 export type SquareMillimeters = Brand<number, "SquareMillimeters">;
 export type Grams = Brand<number, "Grams">;
+export type Cents = Brand<number, "Cents">;
 
 export interface DimensionsMm {
   length: Millimeters;
@@ -107,6 +108,7 @@ export interface LayoutBounds {
 
 export interface WeaponMetrics {
   totalWeight: Grams;
+  totalPrice: Cents;
   totalLength: Millimeters;
   totalHeight: Millimeters;
 }
@@ -144,4 +146,8 @@ export function mm2(value: number): SquareMillimeters {
 
 export function grams(value: number): Grams {
   return value as Grams;
+}
+
+export function cents(value: number): Cents {
+  return value as Cents;
 }
