@@ -5,7 +5,7 @@ import { layoutWeapon } from "../composition/layout-weapon";
 
 export function generateWeapon(seedBundle: SeedBundle): Weapon {
   const { parts, connections } = generateBom(seedBundle);
-  const { layout, bounds, metrics } = layoutWeapon(parts);
+  const { layout, bounds, metrics } = layoutWeapon(parts, seedBundle.category);
   return {
     category: seedBundle.category,
     seedBundle,

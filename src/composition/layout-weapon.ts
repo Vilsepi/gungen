@@ -1,8 +1,23 @@
-import { cents, grams, LayoutPart, mm, WeaponMetrics } from "../core/types";
+import {
+  cents,
+  grams,
+  LayoutPart,
+  mm,
+  WeaponCategory,
+  WeaponMetrics,
+} from "../core/types";
 import { Weapon } from "../domain/bom/weapon";
 import { Part } from "../domain/parts";
 import { computePartPrice } from "../domain/physics/price";
 import { computeBounds } from "./normalize-layout";
+
+const MAGWELL_ROT_DEG = 16;
+const MAGWELL_SIN = Math.sin((MAGWELL_ROT_DEG * Math.PI) / 180);
+const MAGWELL_COS = Math.cos((MAGWELL_ROT_DEG * Math.PI) / 180);
+
+const PISTOL_ROT_DEG = 22;
+const PISTOL_SIN = Math.sin((PISTOL_ROT_DEG * Math.PI) / 180);
+const PISTOL_COS = Math.cos((PISTOL_ROT_DEG * Math.PI) / 180);
 
 function partMap(parts: Part[]): Map<string, Part> {
   return new Map(parts.map((part) => [part.kind, part]));
@@ -43,6 +58,7 @@ function createLayoutPart(
 
 export function layoutWeapon(
   parts: Part[],
+  category: WeaponCategory = "AssaultRifle",
 ): Pick<Weapon, "layout" | "bounds" | "metrics"> {
   const byKind = partMap(parts);
   const receiver = byKind.get("receiver");
@@ -117,11 +133,47 @@ export function layoutWeapon(
 
   const magwellLength = Number(magwell.dimensionsMm.length);
   const magwellWidth = Number(magwell.dimensionsMm.width);
+  const magLength = Number(magazine.dimensionsMm.length);
+  const magWidth = Number(magazine.dimensionsMm.width);
+  const gripLength = Number(pistolGrip.dimensionsMm.length);
+  const gripWidth = Number(pistolGrip.dimensionsMm.width);
+
+  const isPistol = category === "Pistol";
+
+  let magwellX: number;
+  let magwellY: number;
+  let magwellRot: number;
+  let magX: number;
+  let magY: number;
+  let magRot: number;
+
+  if (isPistol) {
+    // For pistols: align magwell and magazine with the pistol grip (same rotation).
+    // The magwell sits directly below the grip, and the magazine sits below the magwell.
+    const gripCenterX = -receiverLength * 0.1;
+    const gripCenterY = receiverWidth * 0.78;
+    magwellRot = PISTOL_ROT_DEG;
+    magwellX = gripCenterX - ((gripLength + magwellLength) / 2) * PISTOL_SIN;
+    magwellY = gripCenterY + ((gripLength + magwellLength) / 2) * PISTOL_COS;
+    magRot = PISTOL_ROT_DEG;
+    magX = magwellX - ((magwellLength + magLength) / 2) * PISTOL_SIN;
+    magY = magwellY + ((magwellLength + magLength) / 2) * PISTOL_COS;
+  } else {
+    // For long guns: magwell hangs below the receiver; magazine centerline aligns
+    // with the magwell centerline so the feed end seats flush in the magwell.
+    magwellRot = MAGWELL_ROT_DEG;
+    magwellX = receiverLength * 0.05;
+    magwellY = receiverWidth * 0.55;
+    magRot = MAGWELL_ROT_DEG;
+    magX = magwellX - ((magwellLength + magLength) / 2) * MAGWELL_SIN;
+    magY = magwellY + ((magwellLength + magLength) / 2) * MAGWELL_COS;
+  }
+
   layout.push(
     createLayoutPart(magwell, {
-      x: receiverLength * 0.05,
-      y: receiverWidth * 0.55,
-      rotationDeg: 16,
+      x: magwellX,
+      y: magwellY,
+      rotationDeg: magwellRot,
       length: magwellLength,
       width: magwellWidth,
       anchors: {
@@ -131,13 +183,11 @@ export function layoutWeapon(
     }),
   );
 
-  const magLength = Number(magazine.dimensionsMm.length);
-  const magWidth = Number(magazine.dimensionsMm.width);
   layout.push(
     createLayoutPart(magazine, {
-      x: receiverLength * 0.06,
-      y: receiverWidth + magLength * 0.42,
-      rotationDeg: 10,
+      x: magX,
+      y: magY,
+      rotationDeg: magRot,
       length: magLength,
       width: magWidth,
       anchors: {
@@ -146,8 +196,6 @@ export function layoutWeapon(
     }),
   );
 
-  const gripLength = Number(pistolGrip.dimensionsMm.length);
-  const gripWidth = Number(pistolGrip.dimensionsMm.width);
   layout.push(
     createLayoutPart(pistolGrip, {
       x: -receiverLength * 0.1,
