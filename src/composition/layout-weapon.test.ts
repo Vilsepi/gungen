@@ -64,7 +64,7 @@ describe("layoutWeapon pricing", () => {
       new OpticPart("optic-test", "Improved"),
     ];
 
-    const result = layoutWeapon(parts);
+    const result = layoutWeapon(parts, "AssaultRifle");
     const expectedTotalMass = parts.reduce(
       (sum, part) => sum + Number(part.mass),
       0,
@@ -85,18 +85,21 @@ describe("layoutWeapon pricing", () => {
   });
 
   it("keeps attachments in contact with the receiver or handguard", () => {
-    const result = layoutWeapon([
-      new ReceiverPart("receiver-test"),
-      new BarrelPart("barrel-test"),
-      new MagwellPart("magwell-test"),
-      new MagazinePart("magazine-test"),
-      new PistolGripPart("pistol-grip-test"),
-      new HandguardPart("handguard-test"),
-      new OpticPart("optic-test"),
-      new LaserPart("laser-test"),
-      new FlashlightPart("flashlight-test"),
-      new FrontGripPart("front-grip-test"),
-    ]);
+    const result = layoutWeapon(
+      [
+        new ReceiverPart("receiver-test"),
+        new BarrelPart("barrel-test"),
+        new MagwellPart("magwell-test"),
+        new MagazinePart("magazine-test"),
+        new PistolGripPart("pistol-grip-test"),
+        new HandguardPart("handguard-test"),
+        new OpticPart("optic-test"),
+        new LaserPart("laser-test"),
+        new FlashlightPart("flashlight-test"),
+        new FrontGripPart("front-grip-test"),
+      ],
+      "AssaultRifle",
+    );
 
     expect(getPart(result.layout, "receiver").partLevel).toBe("Normal");
 
@@ -132,15 +135,18 @@ describe("layoutWeapon pricing", () => {
   });
 
   it("computes bounds that include rotated vertical parts", () => {
-    const result = layoutWeapon([
-      new ReceiverPart("receiver-test"),
-      new BarrelPart("barrel-test"),
-      new MagwellPart("magwell-test"),
-      new MagazinePart("magazine-test"),
-      new PistolGripPart("pistol-grip-test"),
-      new FrontGripPart("front-grip-test"),
-      new HandguardPart("handguard-test"),
-    ]);
+    const result = layoutWeapon(
+      [
+        new ReceiverPart("receiver-test"),
+        new BarrelPart("barrel-test"),
+        new MagwellPart("magwell-test"),
+        new MagazinePart("magazine-test"),
+        new PistolGripPart("pistol-grip-test"),
+        new FrontGripPart("front-grip-test"),
+        new HandguardPart("handguard-test"),
+      ],
+      "AssaultRifle",
+    );
 
     const majorAxisKinds = new Set([
       "magwell",
@@ -194,20 +200,23 @@ describe("layoutWeapon pricing", () => {
     muzzleDevice.dimensionsMm = { length: mm(45), width: mm(20) };
     frontGrip.dimensionsMm = { length: mm(80), width: mm(28) };
 
-    const result = layoutWeapon([
-      receiver,
-      barrel,
-      magwell,
-      magazine,
-      pistolGrip,
-      stock,
-      optic,
-      handguard,
-      laser,
-      flashlight,
-      muzzleDevice,
-      frontGrip,
-    ]);
+    const result = layoutWeapon(
+      [
+        receiver,
+        barrel,
+        magwell,
+        magazine,
+        pistolGrip,
+        stock,
+        optic,
+        handguard,
+        laser,
+        flashlight,
+        muzzleDevice,
+        frontGrip,
+      ],
+      "AssaultRifle",
+    );
 
     const cases: Array<[LayoutPart["kind"], number, number]> = [
       ["receiver", 200, 50],

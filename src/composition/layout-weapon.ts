@@ -11,10 +11,13 @@ import { Part } from "../domain/parts";
 import { computePartPrice } from "../domain/physics/price";
 import { computeBounds } from "./normalize-layout";
 
+// Rotation angle for the magwell (and rifle magazine) relative to vertical.
+// After the horizontal SVG mirror, this creates a natural forward lean.
 const MAGWELL_ROT_DEG = 16;
 const MAGWELL_SIN = Math.sin((MAGWELL_ROT_DEG * Math.PI) / 180);
 const MAGWELL_COS = Math.cos((MAGWELL_ROT_DEG * Math.PI) / 180);
 
+// Rotation angle for the pistol grip assembly (grip, magwell, and magazine on pistols).
 const PISTOL_ROT_DEG = 22;
 const PISTOL_SIN = Math.sin((PISTOL_ROT_DEG * Math.PI) / 180);
 const PISTOL_COS = Math.cos((PISTOL_ROT_DEG * Math.PI) / 180);
@@ -58,7 +61,7 @@ function createLayoutPart(
 
 export function layoutWeapon(
   parts: Part[],
-  category: WeaponCategory = "AssaultRifle",
+  category: WeaponCategory,
 ): Pick<Weapon, "layout" | "bounds" | "metrics"> {
   const byKind = partMap(parts);
   const receiver = byKind.get("receiver");
