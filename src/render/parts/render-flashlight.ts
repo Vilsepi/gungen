@@ -6,6 +6,6 @@ export function renderFlashlight(part: LayoutPart): string {
     part,
     "part flashlight",
     `<circle cx="${part.length * 0.3}" cy="0" r="${part.width * 0.16}" opacity="0.45" />`,
-    0.35,
+    0.08,
   );
 }

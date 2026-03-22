@@ -10,5 +10,5 @@ export function renderMuzzleDevice(part: LayoutPart, prng: Prng): string {
     const x = -part.length * 0.22 + index * (part.length * 0.18);
     inner += `<line x1="${x}" y1="${-part.width * 0.28}" x2="${x}" y2="${part.width * 0.28}" opacity="0.42" />`;
   }
-  return renderRoundedBody(part, "part muzzle-device", inner, 0.25);
+  return renderRoundedBody(part, "part muzzle-device", inner, 0.07);
 }

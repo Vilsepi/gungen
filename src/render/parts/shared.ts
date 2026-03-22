@@ -5,9 +5,9 @@ export function renderRoundedBody(
   part: LayoutPart,
   bodyClass: string,
   inner: string,
-  radiusFactor = 0.18,
+  radiusFactor = 0.08,
 ): string {
-  const rx = Math.max(4, part.width * radiusFactor);
+  const rx = Math.max(1.5, part.width * radiusFactor);
   return `
     <g class="${bodyClass}" transform="${transformTranslateRotate(part.x, part.y, part.rotationDeg)}">
       <rect x="${-part.length / 2}" y="${-part.width / 2}" width="${part.length}" height="${part.width}" rx="${rx}" />
