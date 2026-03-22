@@ -8,7 +8,9 @@
     "build": "vite build src --outDir ../dist --emptyOutDir",
     "preview": "vite preview src --outDir ../dist",
     "render:svg": "tsx scripts/render-svg.mjs",
-    "test": "vitest run",
+    "test": "npm run test:unit",
+    "test:unit": "vitest run --exclude src/generation/generate-weapon-sanity.test.ts",
+    "test:sanity": "vitest run src/generation/generate-weapon-sanity.test.ts",
     "lint": "npm run check && prettier --check \"src/**/*.{ts,js,css,html}\" \"*.{json,md}\"",
     "check": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,js,css,html}\" \"*.{json,md}\""

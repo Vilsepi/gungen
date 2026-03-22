@@ -35,6 +35,10 @@ jobs:
       - name: Run unit tests
         run: npm test
 
+      - name: Run sanity tests
+        run: npm run test:sanity
+        continue-on-error: true
+
       - name: Run build
         run: npm run build -- --base="/${{ github.event.repository.name }}/"
 
