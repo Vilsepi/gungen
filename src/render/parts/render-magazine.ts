@@ -1,10 +1,19 @@
-import { LayoutPart } from "../../core/types";
+import { LayoutPart, WeaponCategory } from "../../core/types";
 import { pickOne, rangeFloat, rangeInt } from "../../random/pick";
 import { Prng } from "../../random/prng";
 import { renderPartGroup } from "./shared";
 
-export function renderMagazine(part: LayoutPart, prng: Prng): string {
-  const profile = pickOne(prng, ["straight", "angled", "curved"] as const);
+export function renderMagazine(
+  part: LayoutPart,
+  prng: Prng,
+  category: WeaponCategory,
+): string {
+  // Pistols always use straight magazines; long guns allow all profiles.
+  const profileChoices =
+    category === "Pistol"
+      ? (["straight"] as const)
+      : (["straight", "angled", "curved"] as const);
+  const profile = pickOne(prng, profileChoices);
   const ribs = rangeInt(prng, 3, 6);
   const left = -part.width / 2;
   const right = part.width / 2;
@@ -13,16 +22,17 @@ export function renderMagazine(part: LayoutPart, prng: Prng): string {
 
   // Horizontal offset of the bottom end relative to the top end.
   // "angled" allows forward (positive) or slight backward (negative) tilt.
-  // "curved" uses a fixed forward offset for a banana-magazine shape.
+  // "curved" uses a large forward offset for a pronounced banana-magazine shape.
   const tipOffset =
     profile === "angled"
       ? rangeFloat(prng, -part.width * 0.4, part.width * 2.0)
       : profile === "curved"
-        ? part.width * 0.75
+        ? part.width * 3.0
         : 0;
 
   // Bezier control point horizontal offset for the curved profile.
-  const curveCtrl = profile === "curved" ? part.width * 0.6 : 0;
+  // A larger value creates a more pronounced bow in the middle of the magazine.
+  const curveCtrl = profile === "curved" ? part.width * 2.0 : 0;
 
   // Returns the horizontal x-shift at normalized height t (0=top, 1=bottom).
   // Both edges shift by the same amount, keeping magazine width constant.

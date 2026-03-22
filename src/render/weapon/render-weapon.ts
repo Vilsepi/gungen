@@ -24,11 +24,12 @@ type PartRenderer = (
   seed: ReturnType<typeof createPrng>,
 ) => string;
 
-const renderers: Record<PartKind, PartRenderer> = {
+type NonMagazineKind = Exclude<PartKind, "magazine">;
+
+const renderers: Record<NonMagazineKind, PartRenderer> = {
   receiver: (part, prng) => renderReceiver(part, prng),
   barrel: (part) => renderBarrel(part),
   magwell: (part) => renderMagwell(part),
-  magazine: (part, prng) => renderMagazine(part, prng),
   pistolGrip: (part) => renderPistolGrip(part),
   handguard: (part, prng) => renderHandguard(part, prng),
   stock: (part, prng) => renderStock(part, prng),
@@ -52,7 +53,10 @@ export function renderWeaponSvg(
         return "";
       }
       const prng = createPrng(baseSeed ^ hashString(part.partId));
-      return renderers[kind](part, prng);
+      if (kind === "magazine") {
+        return renderMagazine(part, prng, weapon.category);
+      }
+      return renderers[kind as NonMagazineKind](part, prng);
     })
     .join("");
 
