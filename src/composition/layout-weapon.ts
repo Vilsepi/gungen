@@ -222,9 +222,26 @@ export function layoutWeapon(
     });
   };
 
-  placeGuardAccessory("laser", 0.25, "top", 0);
-  placeGuardAccessory("flashlight", 0.18, "bottom", 0);
-  placeGuardAccessory("frontGrip", 0.42, "bottom", 6);
+  const guardAccessoryRatios = handguardLayout
+    ? {
+        laser: 0.76,
+        flashlight: 0.72,
+        frontGrip: 0.46,
+      }
+    : {
+        laser: 0.25,
+        flashlight: 0.18,
+        frontGrip: 0.42,
+      };
+
+  placeGuardAccessory("laser", guardAccessoryRatios.laser, "top", 0);
+  placeGuardAccessory(
+    "flashlight",
+    guardAccessoryRatios.flashlight,
+    "bottom",
+    0,
+  );
+  placeGuardAccessory("frontGrip", guardAccessoryRatios.frontGrip, "bottom", 6);
 
   const muzzleDevice = byKind.get("muzzleDevice");
   if (muzzleDevice) {

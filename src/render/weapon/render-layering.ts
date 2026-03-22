@@ -4,10 +4,7 @@ export const renderOrder: readonly PartKind[] = [
   "barrel",
   "muzzleDevice",
 
-  "optic",
-  "laser",
   "flashlight",
-
   "frontGrip",
 
   "magazine",
@@ -16,5 +13,7 @@ export const renderOrder: readonly PartKind[] = [
 
   "stock",
   "handguard",
+  "laser",
   "receiver",
+  "optic"
 ];

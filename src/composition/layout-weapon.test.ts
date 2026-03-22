@@ -101,12 +101,14 @@ describe("layoutWeapon pricing", () => {
 
     const laserMount = resolveAnchor(laser, getAnchor(laser, "mount"));
     expect(laserMount.y).toBeCloseTo(handguard.y - handguard.width / 2, 10);
+    expect(laser.x).toBeGreaterThanOrEqual(handguard.x);
 
     const flashlightMount = resolveAnchor(
       flashlight,
       getAnchor(flashlight, "mount"),
     );
     expect(flashlightMount.y).toBeCloseTo(handguard.y + handguard.width / 2, 10);
+    expect(flashlight.x).toBeGreaterThanOrEqual(handguard.x);
 
     const frontGripMount = resolveAnchor(frontGrip, getAnchor(frontGrip, "mount"));
     expect(frontGripMount.y).toBeCloseTo(handguard.y + handguard.width / 2, 10);
