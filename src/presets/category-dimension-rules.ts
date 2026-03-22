@@ -261,8 +261,8 @@ export const categoryDimensionRules: Record<
       maxSizeY: mm(52),
     },
     optic: {
-      minSizeX: mm(60),
-      maxSizeX: mm(135),
+      minSizeX: mm(120),
+      maxSizeX: mm(300),
       minSizeY: mm(28),
       maxSizeY: mm(40),
     },
@@ -318,7 +318,7 @@ export const categoryDimensionRules: Record<
     },
     optic: {
       minSizeX: mm(110),
-      maxSizeX: mm(180),
+      maxSizeX: mm(300),
       minSizeY: mm(28),
       maxSizeY: mm(42),
     },
@@ -349,16 +349,16 @@ export const categoryDimensionRules: Record<
       maxSizeY: mm(24),
     },
     magwell: {
-      minSizeX: mm(58),
-      maxSizeX: mm(84),
-      minSizeY: mm(24),
-      maxSizeY: mm(36),
+      minSizeX: mm(80),
+      maxSizeX: mm(110),
+      minSizeY: mm(30),
+      maxSizeY: mm(50),
     },
     magazine: {
-      minSizeX: mm(22),
-      maxSizeX: mm(34),
-      minSizeY: mm(120),
-      maxSizeY: mm(190),
+      minSizeX: mm(70),
+      maxSizeX: mm(100),
+      minSizeY: mm(80),
+      maxSizeY: mm(120),
     },
     pistolGrip: {
       minSizeX: mm(26),
@@ -374,9 +374,9 @@ export const categoryDimensionRules: Record<
     },
     optic: {
       minSizeX: mm(135),
-      maxSizeX: mm(185),
-      minSizeY: mm(30),
-      maxSizeY: mm(46),
+      maxSizeX: mm(300),
+      minSizeY: mm(40),
+      maxSizeY: mm(70),
     },
     muzzleDevice: {
       minSizeX: mm(24),
