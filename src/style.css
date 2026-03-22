@@ -1,14 +1,15 @@
 :root {
   --bg: #070707;
-  --panel: rgba(26, 36, 45, 0.86);
+  --panel: rgb(14, 18, 21);
   --ink: #ddded2;
   --muted: #8ea5b6;
   --accent: #97bedd;
   --line: rgba(166, 210, 242, 0.22);
-  --radius: 4px;
-  --shadow: 0 22px 60px rgba(2, 7, 11, 0.42);
+  --radius: 6px;
+  --font-ui: "Rajdhani, IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-display: "Rajdhani", "IBM Plex Sans", "Segoe UI", sans-serif;
   color-scheme: dark;
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-ui);
 }
 
 * {
@@ -19,18 +20,8 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--ink);
-  background:
-    radial-gradient(
-      circle at top left,
-      rgba(70, 95, 115, 0.16),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      rgba(37, 51, 62, 0.24),
-      transparent 36%
-    ),
-    linear-gradient(180deg, #13171b 0%, var(--bg) 52%, #161d25 100%);
+  background: linear-gradient(180deg, #13171b 0%, var(--bg) 52%, #060708 100%);
+  font-family: var(--font-ui);
 }
 
 button,
@@ -90,9 +81,12 @@ select {
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
   line-height: 0.95;
-  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .hero p {
@@ -159,6 +153,7 @@ select {
 .subheading {
   display: block;
   color: var(--muted);
+  font-family: var(--font-display);
   font-size: 0.82rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -201,16 +196,6 @@ select {
   aspect-ratio: 5 / 2;
   min-height: 260px;
   border-radius: var(--radius);
-  border: 1px solid rgba(166, 210, 242, 0.12);
-  background:
-    linear-gradient(180deg, rgba(35, 47, 58, 0.96), rgba(20, 29, 37, 0.98)),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 40px,
-      rgba(166, 210, 242, 0.05) 40px,
-      rgba(166, 210, 242, 0.05) 41px
-    );
   display: grid;
   place-items: center;
 }
@@ -224,6 +209,7 @@ select {
   max-width: min(45rem, calc(100% - 1.5rem));
   padding: 0.1rem 0.1rem;
   color: #d9ecfb;
+  font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -256,6 +242,7 @@ select {
 
 .stat-label {
   display: block;
+  font-family: var(--font-display);
   font-size: 0.78rem;
   color: var(--muted);
   text-transform: uppercase;
@@ -278,14 +265,14 @@ select {
 
 .list-card {
   padding: 0.9rem;
-  border-radius: var(--radius);
-  background: rgba(37, 50, 61, 0.72);
-  border: 1px solid rgba(166, 210, 242, 0.1);
 }
 
 .list-card h3 {
   margin: 0 0 0.75rem;
+  font-family: var(--font-display);
   font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .list-card ul {
@@ -303,6 +290,7 @@ select {
   align-items: center;
   gap: 0.5rem;
   color: var(--muted);
+  font-family: var(--font-display);
   font-size: 0.82rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;

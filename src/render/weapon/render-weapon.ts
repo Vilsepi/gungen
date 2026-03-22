@@ -67,7 +67,7 @@ export function renderWeaponSvg(
         --part-fill-opacity: ${options.debug ? "0.1" : "1"};
       }
       .part {
-        --part-fill-rgb: 55, 56, 44;
+        --part-fill-rgb: 30, 30, 40;
         --part-fill: rgba(var(--part-fill-rgb), var(--part-fill-opacity));
         --part-stroke: rgba(196, 208, 217, 0.88);
         fill: var(--part-fill);
@@ -118,11 +118,11 @@ export function renderWeaponSvg(
         stroke: none;
       }
       .part.level-normal {
-        --part-fill-rgb: 49, 56, 44;
+        --part-fill-rgb: 30, 30, 40;
         --part-stroke: rgba(196, 208, 217, 1);
       }
       .part.level-improved {
-        --part-fill-rgb: 45, 58, 76;
+        --part-fill-rgb: 60, 60, 70;
         --part-stroke: rgba(156, 211, 255, 1);
       }
       .part.level-rare {

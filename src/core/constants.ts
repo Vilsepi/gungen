@@ -110,10 +110,10 @@ export const partPricePerGramCents: Record<PartKind, number> = {
 
 // Odds for part upgrade levels to appear
 export const partLevelOdds: Record<PartLevel, number> = {
-  Normal: 75,
-  Improved: 15,
-  Rare: 7,
-  Exotic: 3,
+  Normal: 80,
+  Improved: 10,
+  Rare: 6,
+  Exotic: 4,
 };
 
 export const partLevelPriceMultipliers: Record<PartLevel, number> = {
