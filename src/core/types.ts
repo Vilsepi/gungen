@@ -35,13 +35,12 @@ export const attachmentPointKinds = [
   "top",
   "bottom",
   "front",
-  "back",
+  "rear",
   "barrelStart",
   "barrelEnd",
   "magIn",
   "magOut",
   "side",
-  "rear",
 ] as const;
 
 export type AttachmentPointKind = (typeof attachmentPointKinds)[number];

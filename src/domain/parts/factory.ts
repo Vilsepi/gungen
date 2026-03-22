@@ -97,7 +97,7 @@ export const BarrelPart = createPartClass("barrel", "Barrel", [
 export const HandguardPart = createPartClass("handguard", "Handguard", [
   {
     id: "rear",
-    kind: "back",
+    kind: "rear",
     allowedPartKinds: ["receiver"],
     maxConnections: 1,
   },
@@ -124,7 +124,7 @@ export const HandguardPart = createPartClass("handguard", "Handguard", [
 export const MagwellPart = createPartClass("magwell", "Magwell", [
   {
     id: "host",
-    kind: "back",
+    kind: "rear",
     allowedPartKinds: ["receiver", "pistolGrip"],
     maxConnections: 1,
   },
@@ -196,7 +196,7 @@ export const MuzzleDevicePart = createPartClass(
   [
     {
       id: "mount",
-      kind: "back",
+      kind: "rear",
       allowedPartKinds: ["barrel"],
       maxConnections: 1,
     },
