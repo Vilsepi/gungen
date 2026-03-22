@@ -42,16 +42,16 @@ export const categoryDimensionRules: Record<
       maxWidth: mm(40),
     },
     optic: {
-      minLength: mm(30),
+      minLength: mm(40),
       maxLength: mm(62),
-      minWidth: mm(18),
-      maxWidth: mm(28),
+      minWidth: mm(22),
+      maxWidth: mm(30),
     },
     muzzleDevice: {
       minLength: mm(18),
       maxLength: mm(35),
-      minWidth: mm(16),
-      maxWidth: mm(28),
+      minWidth: mm(22),
+      maxWidth: mm(32),
     },
     stock: { minLength: mm(0), maxLength: mm(0) },
   },
@@ -95,14 +95,14 @@ export const categoryDimensionRules: Record<
     optic: {
       minLength: mm(40),
       maxLength: mm(92),
-      minWidth: mm(20),
-      maxWidth: mm(32),
+      minWidth: mm(25),
+      maxWidth: mm(34),
     },
     muzzleDevice: {
       minLength: mm(20),
       maxLength: mm(45),
-      minWidth: mm(16),
-      maxWidth: mm(30),
+      minWidth: mm(22),
+      maxWidth: mm(34),
     },
     stock: {
       minLength: mm(125),
@@ -151,14 +151,14 @@ export const categoryDimensionRules: Record<
     optic: {
       minLength: mm(45),
       maxLength: mm(110),
-      minWidth: mm(22),
-      maxWidth: mm(34),
+      minWidth: mm(26),
+      maxWidth: mm(36),
     },
     muzzleDevice: {
       minLength: mm(20),
       maxLength: mm(45),
-      minWidth: mm(16),
-      maxWidth: mm(30),
+      minWidth: mm(22),
+      maxWidth: mm(36),
     },
     stock: {
       minLength: mm(150),
@@ -207,14 +207,14 @@ export const categoryDimensionRules: Record<
     optic: {
       minLength: mm(50),
       maxLength: mm(118),
-      minWidth: mm(22),
-      maxWidth: mm(36),
+      minWidth: mm(26),
+      maxWidth: mm(38),
     },
     muzzleDevice: {
       minLength: mm(22),
       maxLength: mm(48),
-      minWidth: mm(16),
-      maxWidth: mm(32),
+      minWidth: mm(22),
+      maxWidth: mm(38),
     },
     stock: {
       minLength: mm(170),
@@ -263,14 +263,14 @@ export const categoryDimensionRules: Record<
     optic: {
       minLength: mm(60),
       maxLength: mm(135),
-      minWidth: mm(24),
-      maxWidth: mm(38),
+      minWidth: mm(28),
+      maxWidth: mm(40),
     },
     muzzleDevice: {
       minLength: mm(22),
       maxLength: mm(52),
-      minWidth: mm(18),
-      maxWidth: mm(34),
+      minWidth: mm(22),
+      maxWidth: mm(40),
     },
     stock: {
       minLength: mm(180),
@@ -325,8 +325,8 @@ export const categoryDimensionRules: Record<
     muzzleDevice: {
       minLength: mm(22),
       maxLength: mm(55),
-      minWidth: mm(18),
-      maxWidth: mm(34),
+      minWidth: mm(22),
+      maxWidth: mm(42),
     },
     stock: {
       minLength: mm(190),
@@ -381,8 +381,8 @@ export const categoryDimensionRules: Record<
     muzzleDevice: {
       minLength: mm(24),
       maxLength: mm(70),
-      minWidth: mm(18),
-      maxWidth: mm(34),
+      minWidth: mm(24),
+      maxWidth: mm(44),
     },
     stock: {
       minLength: mm(230),
