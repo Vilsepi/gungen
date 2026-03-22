@@ -105,6 +105,8 @@ describe("layoutWeapon pricing", () => {
 
     const receiver = getPart(result.layout, "receiver");
     const handguard = getPart(result.layout, "handguard");
+    const magwell = getPart(result.layout, "magwell");
+    const magazine = getPart(result.layout, "magazine");
     const optic = getPart(result.layout, "optic");
     const laser = getPart(result.layout, "laser");
     const flashlight = getPart(result.layout, "flashlight");
@@ -132,6 +134,11 @@ describe("layoutWeapon pricing", () => {
       getAnchor(frontGrip, "mount"),
     );
     expect(frontGripMount.y).toBeCloseTo(handguard.y + handguard.sizeY / 2, 10);
+
+    const magwellSeat = resolveAnchor(magwell, getAnchor(magwell, "mag"));
+    const magazineFeed = resolveAnchor(magazine, getAnchor(magazine, "feed"));
+    expect(magazineFeed.x).toBeCloseTo(magwellSeat.x, 10);
+    expect(magazineFeed.y - magwellSeat.y).toBeCloseTo(4, 10);
   });
 
   it("computes bounds that include rotated vertical parts", () => {

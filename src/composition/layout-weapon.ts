@@ -22,6 +22,9 @@ const PISTOL_ROT_DEG = 10;
 const PISTOL_SIN = Math.sin((PISTOL_ROT_DEG * Math.PI) / 180);
 const PISTOL_COS = Math.cos((PISTOL_ROT_DEG * Math.PI) / 180);
 
+// Keep a slight amount of the magazine exposed below the magwell.
+const MAGAZINE_SEAT_DROP_MM = 4;
+
 function partMap(parts: Part[]): Map<string, Part> {
   return new Map(parts.map((part) => [part.kind, part]));
 }
@@ -159,8 +162,12 @@ export function layoutWeapon(
     magwellX = gripCenterX - ((gripSizeX + magwellSizeX) / 2) * PISTOL_SIN;
     magwellY = gripCenterY + ((gripSizeX + magwellSizeX) / 2) * PISTOL_COS;
     magRot = PISTOL_ROT_DEG;
-    magX = magwellX - ((magwellSizeX + magazineSizeX) / 2) * PISTOL_SIN;
-    magY = magwellY + ((magwellSizeX + magazineSizeX) / 2) * PISTOL_COS;
+    magX =
+      magwellX -
+      ((magwellSizeX + magazineSizeX) / 2 + MAGAZINE_SEAT_DROP_MM) * PISTOL_SIN;
+    magY =
+      magwellY +
+      ((magwellSizeX + magazineSizeX) / 2 + MAGAZINE_SEAT_DROP_MM) * PISTOL_COS;
   } else {
     // For long guns: magwell hangs below the receiver; magazine centerline aligns
     // with the magwell centerline so the feed end seats flush in the magwell.
@@ -168,8 +175,14 @@ export function layoutWeapon(
     magwellX = receiverSizeX * 0.05;
     magwellY = receiverSizeY * 0.55;
     magRot = MAGWELL_ROT_DEG;
-    magX = magwellX - ((magwellSizeX + magazineSizeX) / 2) * MAGWELL_SIN;
-    magY = magwellY + ((magwellSizeX + magazineSizeX) / 2) * MAGWELL_COS;
+    magX =
+      magwellX -
+      ((magwellSizeX + magazineSizeX) / 2 + MAGAZINE_SEAT_DROP_MM) *
+        MAGWELL_SIN;
+    magY =
+      magwellY +
+      ((magwellSizeX + magazineSizeX) / 2 + MAGAZINE_SEAT_DROP_MM) *
+        MAGWELL_COS;
   }
 
   layout.push(

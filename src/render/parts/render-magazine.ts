@@ -8,6 +8,10 @@ export function renderMagazine(
   prng: Prng,
   category: WeaponCategory,
 ): string {
+
+  // If a magazine is curved, it should be rotated towards the front.
+  const curvedRotationDeg = -40;
+
   // Pistols always use straight magazines; long guns allow all profiles.
   const profileChoices =
     category === "Pistol"
@@ -22,19 +26,19 @@ export function renderMagazine(
 
   // Horizontal offset of the bottom end relative to the top end in local coords.
   // Positive local X becomes screen-left (barrel side) after the SVG document's
-  // scale(-1 1) mirror, so a positive tipOffset curves the bottom toward the barrel.
+  // scale(-1 1) mirror, so a negative tipOffset curves the bottom toward the rear.
   // "angled" allows forward (positive) or slight backward (negative) tilt.
-  // "curved" uses a large positive offset for a pronounced banana-magazine shape.
+  // "curved" uses a large negative offset for a pronounced rearward banana-magazine shape.
   const tipOffset =
     profile === "angled"
       ? rangeFloat(prng, -part.sizeX * 0.4, part.sizeX * 2.0)
       : profile === "curved"
-        ? part.sizeX * 3.0
+        ? -part.sizeX * 1.3
         : 0;
 
   // Bezier control point horizontal offset for the curved profile.
-  // A larger value creates a more pronounced bow in the middle of the magazine.
-  const curveCtrl = profile === "curved" ? part.sizeX * 2.0 : 0;
+  // A larger negative value creates a more pronounced rearward bow in the middle.
+  const curveCtrl = profile === "curved" ? -part.sizeX * 2.5 : 0;
 
   // Returns the horizontal x-shift at normalized vertical position t (0=top, 1=bottom).
   // Both edges shift by the same amount, keeping the sizeY span constant.
@@ -79,15 +83,18 @@ export function renderMagazine(
   // Highlight along the left edge area.
   const highlight = `<path class="highlight" d="M ${left + part.sizeX * 0.1 + shiftAt(0.1)} ${top + part.sizeY * 0.1} L ${right - part.sizeX * 0.16 + shiftAt(0.82)} ${top + part.sizeY * 0.82}" />`;
 
-  return renderPartGroup(
-    part,
-    "part magazine",
-    `
+  const content = `
       ${body}
       ${shade}
       ${panel}
       ${ribLines}
       ${highlight}
-    `,
-  );
+    `;
+
+  const orientedContent =
+    profile === "curved"
+      ? `<g transform="rotate(${curvedRotationDeg} 0 ${top})">${content}</g>`
+      : content;
+
+  return renderPartGroup(part, "part magazine", orientedContent);
 }
