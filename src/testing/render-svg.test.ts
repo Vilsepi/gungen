@@ -133,3 +133,23 @@ describe("renderWeaponSvg dimensions", () => {
     }
   });
 });
+
+describe("renderWeaponSvg styling", () => {
+  it("uses a global part fill opacity variable that debug mode lowers", () => {
+    const seedBundle = {
+      category: "AssaultRifle",
+      dataModelSeed: "5f930404",
+      partSizeSeed: "a784b217",
+      aestheticDetailSeed: "44c43249",
+    } as const;
+    const weapon = generateWeapon(seedBundle);
+    const normalSvg = renderWeaponSvg(weapon, { debug: false });
+    const debugSvg = renderWeaponSvg(weapon, { debug: true });
+
+    expect(normalSvg).toContain("--part-fill-opacity: 1;");
+    expect(debugSvg).toContain("--part-fill-opacity: 0.1;");
+    expect(normalSvg).toContain(
+      "--part-fill: rgba(var(--part-fill-rgb), var(--part-fill-opacity));",
+    );
+  });
+});

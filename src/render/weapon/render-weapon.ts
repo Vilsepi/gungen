@@ -63,8 +63,12 @@ export function renderWeaponSvg(
   const debug = options.debug ? renderDebug(weapon.layout) : "";
   const drawing = `
     <style>
+      svg {
+        --part-fill-opacity: ${options.debug ? "0.1" : "1"};
+      }
       .part {
-        --part-fill: rgba(44, 50, 56, 0.96);
+        --part-fill-rgb: 55, 56, 44;
+        --part-fill: rgba(var(--part-fill-rgb), var(--part-fill-opacity));
         --part-stroke: rgba(196, 208, 217, 0.88);
         fill: var(--part-fill);
         stroke: var(--part-stroke);
@@ -91,7 +95,7 @@ export function renderWeaponSvg(
         stroke-width: 1.1;
       }
       .part .shade {
-        fill: rgba(14, 18, 23, 0.34);
+        fill: rgba(23, 14, 19, 0.34);
         stroke: none;
       }
       .part .highlight {
@@ -114,20 +118,20 @@ export function renderWeaponSvg(
         stroke: none;
       }
       .part.level-normal {
-        --part-fill: rgba(44, 50, 56, 0.96);
-        --part-stroke: rgba(196, 208, 217, 0.88);
+        --part-fill-rgb: 49, 56, 44;
+        --part-stroke: rgba(196, 208, 217, 1);
       }
       .part.level-improved {
-        --part-fill: rgba(45, 58, 76, 0.98);
-        --part-stroke: rgba(156, 211, 255, 0.96);
+        --part-fill-rgb: 45, 58, 76;
+        --part-stroke: rgba(156, 211, 255, 1);
       }
       .part.level-rare {
-        --part-fill: rgba(54, 72, 68, 0.98);
-        --part-stroke: rgba(185, 219, 203, 0.92);
+        --part-fill-rgb: 54, 72, 68;
+        --part-stroke: rgba(185, 219, 203, 1);
       }
       .part.level-exotic {
-        --part-fill: rgba(63, 51, 35, 0.98);
-        --part-stroke: rgba(233, 205, 135, 0.94);
+        --part-fill-rgb: 63, 51, 35;
+        --part-stroke: rgba(233, 205, 135, 1);
       }
       .debug { vector-effect: non-scaling-stroke; }
     </style>
