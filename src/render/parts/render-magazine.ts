@@ -20,20 +20,21 @@ export function renderMagazine(
   const top = -part.length / 2;
   const bottom = part.length / 2;
 
-  // Horizontal offset of the bottom end relative to the top end.
+  // Horizontal offset of the bottom end relative to the top end in local coords.
+  // Positive local X becomes screen-left (barrel side) after the SVG document's
+  // scale(-1 1) mirror, so a positive tipOffset curves the bottom toward the barrel.
   // "angled" allows forward (positive) or slight backward (negative) tilt.
-  // "curved" uses a large negative offset so the bottom curves toward the barrel
-  // after the SVG document's horizontal scale(-1 1) mirror.
+  // "curved" uses a large positive offset for a pronounced banana-magazine shape.
   const tipOffset =
     profile === "angled"
       ? rangeFloat(prng, -part.width * 0.4, part.width * 2.0)
       : profile === "curved"
-        ? -part.width * 3.0
+        ? part.width * 3.0
         : 0;
 
   // Bezier control point horizontal offset for the curved profile.
-  // A larger magnitude creates a more pronounced bow in the middle of the magazine.
-  const curveCtrl = profile === "curved" ? -part.width * 2.0 : 0;
+  // A larger value creates a more pronounced bow in the middle of the magazine.
+  const curveCtrl = profile === "curved" ? part.width * 2.0 : 0;
 
   // Returns the horizontal x-shift at normalized height t (0=top, 1=bottom).
   // Both edges shift by the same amount, keeping magazine width constant.
