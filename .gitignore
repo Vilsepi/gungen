@@ -1,2 +1,4 @@
 node_modules/
 dist/
+*.svg
+preview.html
