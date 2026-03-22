@@ -33,7 +33,7 @@ const categoryMetricBounds: Record<WeaponCategory, MetricBounds> = {
     minPriceUsd: 800,
     maxPriceUsd: 4000,
     minMassGrams: 2500,
-    maxMassGrams: 4000,
+    maxMassGrams: 4200,
     minLengthMm: 550,
     maxLengthMm: 900,
   },
