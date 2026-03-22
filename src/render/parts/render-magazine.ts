@@ -22,17 +22,18 @@ export function renderMagazine(
 
   // Horizontal offset of the bottom end relative to the top end.
   // "angled" allows forward (positive) or slight backward (negative) tilt.
-  // "curved" uses a large forward offset for a pronounced banana-magazine shape.
+  // "curved" uses a large negative offset so the bottom curves toward the barrel
+  // after the SVG document's horizontal scale(-1 1) mirror.
   const tipOffset =
     profile === "angled"
       ? rangeFloat(prng, -part.width * 0.4, part.width * 2.0)
       : profile === "curved"
-        ? part.width * 3.0
+        ? -part.width * 3.0
         : 0;
 
   // Bezier control point horizontal offset for the curved profile.
-  // A larger value creates a more pronounced bow in the middle of the magazine.
-  const curveCtrl = profile === "curved" ? part.width * 2.0 : 0;
+  // A larger magnitude creates a more pronounced bow in the middle of the magazine.
+  const curveCtrl = profile === "curved" ? -part.width * 2.0 : 0;
 
   // Returns the horizontal x-shift at normalized height t (0=top, 1=bottom).
   // Both edges shift by the same amount, keeping magazine width constant.
