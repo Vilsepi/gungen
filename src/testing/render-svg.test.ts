@@ -49,6 +49,10 @@ describe("renderSvgCanvas", () => {
     expect(svg).not.toContain("<html");
     expect(svg).toContain('viewBox="-');
     expect(svg).toContain('aria-label="Generated firearm illustration"');
+    expect(svg).toMatch(
+      /class="part [^"]*level-(normal|improved|rare|exotic)"/u,
+    );
+    expect(svg).toContain(".part.level-exotic");
   });
 
   it("is deterministic for the same inputs", () => {

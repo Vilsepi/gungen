@@ -1,9 +1,9 @@
 import { baseDimensionRanges, partDensities } from "../../core/constants";
 import {
   AttachmentPointSpec,
-  grams,
   mm,
   PartKind,
+  PartLevel,
   DimensionsMm,
   DimensionRangeMm,
 } from "../../core/types";
@@ -14,6 +14,7 @@ class GenericPart extends Part {
   constructor(
     id: string,
     kind: PartKind,
+    partLevel: PartLevel,
     displayName: string,
     attachmentPointSpecs: AttachmentPointSpec[],
     range: DimensionRangeMm,
@@ -30,6 +31,7 @@ class GenericPart extends Part {
     super({
       id,
       kind,
+      partLevel,
       displayName,
       density: partDensities[kind],
       baseRange: range,
@@ -47,10 +49,11 @@ function createPartClass(
   attachmentPointSpecs: AttachmentPointSpec[],
 ) {
   return class extends GenericPart {
-    constructor(id: string) {
+    constructor(id: string, partLevel: PartLevel = "Normal") {
       super(
         id,
         kind,
+        partLevel,
         displayName,
         attachmentPointSpecs,
         baseDimensionRanges[kind],
@@ -209,7 +212,10 @@ export const FrontGripPart = createPartClass("frontGrip", "Front Grip", [
   },
 ]);
 
-export const partConstructors: Record<PartKind, new (id: string) => Part> = {
+export const partConstructors: Record<
+  PartKind,
+  new (id: string, partLevel?: PartLevel) => Part
+> = {
   receiver: ReceiverPart,
   barrel: BarrelPart,
   magwell: MagwellPart,

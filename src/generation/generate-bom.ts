@@ -1,5 +1,7 @@
-import { Connection, PartKind, SeedBundle } from "../core/types";
+import { Connection, PartKind, PartLevel, SeedBundle } from "../core/types";
+import { partLevelWeights } from "../core/constants";
 import { Part, partConstructors } from "../domain/parts";
+import { pickWeighted } from "../random/pick";
 import { createPrng } from "../random/prng";
 import { normalizeSeedBundle } from "../random/seed";
 import { selectAttachments } from "./select-attachments";
@@ -8,6 +10,10 @@ import { validateWeapon } from "./validate-weapon";
 
 function createPartId(kind: PartKind, index: number): string {
   return `${kind}-${index}`;
+}
+
+function selectPartLevel(prng: ReturnType<typeof createPrng>): PartLevel {
+  return pickWeighted(prng, partLevelWeights) ?? "Normal";
 }
 
 function buildConnections(
@@ -97,7 +103,10 @@ export function generateBom(seedBundle: SeedBundle): {
   let index = 1;
   for (const kind of selectedKinds) {
     const PartCtor = partConstructors[kind];
-    const part = new PartCtor(createPartId(kind, index));
+    const part = new PartCtor(
+      createPartId(kind, index),
+      selectPartLevel(dataPrng),
+    );
     index += 1;
     parts.push(part);
     partsByKind.set(kind, part);

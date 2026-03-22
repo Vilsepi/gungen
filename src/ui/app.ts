@@ -80,6 +80,7 @@ function getSummaryItems(store: Store): WeaponSummaryItem[] {
   return store.getState().weapon.parts.map((part) => ({
     id: part.id,
     kind: part.kind,
+    partLevel: part.partLevel,
     displayName: part.displayName,
     length: Number(part.dimensionsMm.length),
     width: Number(part.dimensionsMm.width),
@@ -131,7 +132,7 @@ function renderSummary(store: Store): string {
           ${summaryItems
             .map(
               (item) =>
-                `<li>${item.displayName}: ${formatNumber(item.length)} x ${formatNumber(item.width)} mm, ${formatNumber(item.weight)} g</li>`,
+                `<li>${item.displayName} (${item.partLevel}): ${formatNumber(item.length)} x ${formatNumber(item.width)} mm, ${formatNumber(item.weight)} g</li>`,
             )
             .join("")}
         </ul>

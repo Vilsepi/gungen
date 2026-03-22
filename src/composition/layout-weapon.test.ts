@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { partPricePerGramCents } from "../core/constants";
+import {
+  partLevelPriceMultipliers,
+  partPricePerGramCents,
+} from "../core/constants";
 import { LayoutAnchor, LayoutPart } from "../core/types";
 import {
   BarrelPart,
@@ -52,11 +55,11 @@ describe("layoutWeapon pricing", () => {
   it("sums total price from each part weight and kind multiplier", () => {
     const parts = [
       new ReceiverPart("receiver-test"),
-      new BarrelPart("barrel-test"),
-      new MagwellPart("magwell-test"),
-      new MagazinePart("magazine-test"),
+      new BarrelPart("barrel-test", "Improved"),
+      new MagwellPart("magwell-test", "Rare"),
+      new MagazinePart("magazine-test", "Exotic"),
       new PistolGripPart("pistol-grip-test"),
-      new OpticPart("optic-test"),
+      new OpticPart("optic-test", "Improved"),
     ];
 
     const result = layoutWeapon(parts);
@@ -67,7 +70,11 @@ describe("layoutWeapon pricing", () => {
     const expectedTotalPrice = parts.reduce(
       (sum, part) =>
         sum +
-        Math.round(Number(part.weight) * partPricePerGramCents[part.kind]),
+        Math.round(
+          Number(part.weight) *
+            partPricePerGramCents[part.kind] *
+            partLevelPriceMultipliers[part.partLevel],
+        ),
       0,
     );
 
@@ -91,6 +98,8 @@ describe("layoutWeapon pricing", () => {
       new FlashlightPart("flashlight-test"),
       new FrontGripPart("front-grip-test"),
     ]);
+
+    expect(getPart(result.layout, "receiver").partLevel).toBe("Normal");
 
     const receiver = getPart(result.layout, "receiver");
     const handguard = getPart(result.layout, "handguard");

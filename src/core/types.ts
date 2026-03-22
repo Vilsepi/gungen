@@ -27,6 +27,10 @@ export const partKinds = [
 
 export type PartKind = (typeof partKinds)[number];
 
+export const partLevels = ["Normal", "Improved", "Rare", "Exotic"] as const;
+
+export type PartLevel = (typeof partLevels)[number];
+
 export const attachmentPointKinds = [
   "top",
   "bottom",
@@ -90,6 +94,7 @@ export interface LayoutAnchor {
 export interface LayoutPart {
   partId: string;
   kind: PartKind;
+  partLevel: PartLevel;
   x: number;
   y: number;
   rotationDeg: number;
@@ -129,6 +134,7 @@ export interface CategoryPreset {
 export interface WeaponSummaryItem {
   id: string;
   kind: PartKind;
+  partLevel: PartLevel;
   displayName: string;
   length: number;
   width: number;

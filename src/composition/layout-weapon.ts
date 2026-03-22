@@ -29,6 +29,18 @@ function rotatePoint(
   };
 }
 
+function createLayoutPart(
+  part: Part,
+  input: Omit<LayoutPart, "partId" | "kind" | "partLevel">,
+): LayoutPart {
+  return {
+    partId: part.id,
+    kind: part.kind,
+    partLevel: part.partLevel,
+    ...input,
+  };
+}
+
 export function layoutWeapon(
   parts: Part[],
 ): Pick<Weapon, "layout" | "bounds" | "metrics"> {
@@ -49,9 +61,7 @@ export function layoutWeapon(
   const barrelLength = Number(barrel.dimensionsMm.length);
   const barrelWidth = Number(barrel.dimensionsMm.width);
 
-  const receiverLayout: LayoutPart = {
-    partId: receiver.id,
-    kind: receiver.kind,
+  const receiverLayout = createLayoutPart(receiver, {
     x: 0,
     y: 0,
     rotationDeg: 0,
@@ -63,7 +73,7 @@ export function layoutWeapon(
       front: { x: receiverLength / 2, y: 0 },
       rear: { x: -receiverLength / 2, y: 0 },
     },
-  };
+  });
   layout.push(receiverLayout);
 
   const hasHandguard = byKind.has("handguard");
@@ -75,9 +85,7 @@ export function layoutWeapon(
     : 0;
   let handguardLayout: LayoutPart | undefined;
   if (hasHandguard) {
-    handguardLayout = {
-      partId: byKind.get("handguard")!.id,
-      kind: "handguard",
+    handguardLayout = createLayoutPart(byKind.get("handguard")!, {
       x: receiverLength / 2 + handguardLength / 2 - 8,
       y: 4,
       rotationDeg: 0,
@@ -89,104 +97,104 @@ export function layoutWeapon(
         bottom: { x: handguardLength * 0.15, y: handguardWidth / 2 },
         side: { x: handguardLength * 0.1, y: 0 },
       },
-    };
+    });
     layout.push(handguardLayout);
   }
 
-  layout.push({
-    partId: barrel.id,
-    kind: barrel.kind,
-    x: receiverLength / 2 + barrelLength / 2 + (hasHandguard ? 18 : 8),
-    y: 0,
-    rotationDeg: 0,
-    length: barrelLength,
-    width: barrelWidth,
-    anchors: {
-      start: { x: -barrelLength / 2, y: 0 },
-      end: { x: barrelLength / 2, y: 0 },
-    },
-  });
+  layout.push(
+    createLayoutPart(barrel, {
+      x: receiverLength / 2 + barrelLength / 2 + (hasHandguard ? 18 : 8),
+      y: 0,
+      rotationDeg: 0,
+      length: barrelLength,
+      width: barrelWidth,
+      anchors: {
+        start: { x: -barrelLength / 2, y: 0 },
+        end: { x: barrelLength / 2, y: 0 },
+      },
+    }),
+  );
 
   const magwellLength = Number(magwell.dimensionsMm.length);
   const magwellWidth = Number(magwell.dimensionsMm.width);
-  layout.push({
-    partId: magwell.id,
-    kind: magwell.kind,
-    x: receiverLength * 0.05,
-    y: receiverWidth * 0.55,
-    rotationDeg: 16,
-    length: magwellLength,
-    width: magwellWidth,
-    anchors: {
-      host: { x: 0, y: -magwellLength / 2 },
-      mag: { x: 0, y: magwellLength / 2 },
-    },
-  });
+  layout.push(
+    createLayoutPart(magwell, {
+      x: receiverLength * 0.05,
+      y: receiverWidth * 0.55,
+      rotationDeg: 16,
+      length: magwellLength,
+      width: magwellWidth,
+      anchors: {
+        host: { x: 0, y: -magwellLength / 2 },
+        mag: { x: 0, y: magwellLength / 2 },
+      },
+    }),
+  );
 
   const magLength = Number(magazine.dimensionsMm.length);
   const magWidth = Number(magazine.dimensionsMm.width);
-  layout.push({
-    partId: magazine.id,
-    kind: magazine.kind,
-    x: receiverLength * 0.06,
-    y: receiverWidth + magLength * 0.42,
-    rotationDeg: 10,
-    length: magLength,
-    width: magWidth,
-    anchors: {
-      feed: { x: 0, y: -magLength / 2 },
-    },
-  });
+  layout.push(
+    createLayoutPart(magazine, {
+      x: receiverLength * 0.06,
+      y: receiverWidth + magLength * 0.42,
+      rotationDeg: 10,
+      length: magLength,
+      width: magWidth,
+      anchors: {
+        feed: { x: 0, y: -magLength / 2 },
+      },
+    }),
+  );
 
   const gripLength = Number(pistolGrip.dimensionsMm.length);
   const gripWidth = Number(pistolGrip.dimensionsMm.width);
-  layout.push({
-    partId: pistolGrip.id,
-    kind: pistolGrip.kind,
-    x: -receiverLength * 0.1,
-    y: receiverWidth * 0.78,
-    rotationDeg: 22,
-    length: gripLength,
-    width: gripWidth,
-    anchors: {
-      mount: { x: 0, y: -gripLength / 2 },
-    },
-  });
+  layout.push(
+    createLayoutPart(pistolGrip, {
+      x: -receiverLength * 0.1,
+      y: receiverWidth * 0.78,
+      rotationDeg: 22,
+      length: gripLength,
+      width: gripWidth,
+      anchors: {
+        mount: { x: 0, y: -gripLength / 2 },
+      },
+    }),
+  );
 
   const stock = byKind.get("stock");
   if (stock) {
     const stockLength = Number(stock.dimensionsMm.length);
     const stockWidth = Number(stock.dimensionsMm.width);
-    layout.push({
-      partId: stock.id,
-      kind: stock.kind,
-      x: -(receiverLength / 2 + stockLength / 2 - 10),
-      y: 2,
-      rotationDeg: 0,
-      length: stockLength,
-      width: stockWidth,
-      anchors: {
-        mount: { x: stockLength / 2, y: 0 },
-      },
-    });
+    layout.push(
+      createLayoutPart(stock, {
+        x: -(receiverLength / 2 + stockLength / 2 - 10),
+        y: 2,
+        rotationDeg: 0,
+        length: stockLength,
+        width: stockWidth,
+        anchors: {
+          mount: { x: stockLength / 2, y: 0 },
+        },
+      }),
+    );
   }
 
   const optic = byKind.get("optic");
   if (optic) {
     const opticLength = Number(optic.dimensionsMm.length);
     const opticWidth = Number(optic.dimensionsMm.width);
-    layout.push({
-      partId: optic.id,
-      kind: optic.kind,
-      x: receiverLength * 0.02,
-      y: receiverLayout.y - receiverLayout.width / 2 - opticWidth / 2,
-      rotationDeg: 0,
-      length: opticLength,
-      width: opticWidth,
-      anchors: {
-        mount: { x: 0, y: opticWidth / 2 },
-      },
-    });
+    layout.push(
+      createLayoutPart(optic, {
+        x: receiverLength * 0.02,
+        y: receiverLayout.y - receiverLayout.width / 2 - opticWidth / 2,
+        rotationDeg: 0,
+        length: opticLength,
+        width: opticWidth,
+        anchors: {
+          mount: { x: 0, y: opticWidth / 2 },
+        },
+      }),
+    );
   }
 
   const placeGuardAccessory = (
@@ -210,18 +218,18 @@ export function layoutWeapon(
     const contactY =
       host.y + (hostSide === "top" ? -host.width / 2 : host.width / 2);
 
-    layout.push({
-      partId: part.id,
-      kind,
-      x: contactX - rotatedMount.x,
-      y: contactY - rotatedMount.y,
-      rotationDeg,
-      length,
-      width,
-      anchors: {
-        mount,
-      },
-    });
+    layout.push(
+      createLayoutPart(part, {
+        x: contactX - rotatedMount.x,
+        y: contactY - rotatedMount.y,
+        rotationDeg,
+        length,
+        width,
+        anchors: {
+          mount,
+        },
+      }),
+    );
   };
 
   const guardAccessoryRatios = handguardLayout
@@ -249,28 +257,29 @@ export function layoutWeapon(
   if (muzzleDevice) {
     const length = Number(muzzleDevice.dimensionsMm.length);
     const width = Number(muzzleDevice.dimensionsMm.width);
-    layout.push({
-      partId: muzzleDevice.id,
-      kind: muzzleDevice.kind,
-      x:
-        receiverLength / 2 +
-        barrelLength +
-        length / 2 +
-        (hasHandguard ? 18 : 8),
-      y: 0,
-      rotationDeg: 0,
-      length,
-      width,
-      anchors: {
-        mount: { x: -length / 2, y: 0 },
-      },
-    });
+    layout.push(
+      createLayoutPart(muzzleDevice, {
+        x:
+          receiverLength / 2 +
+          barrelLength +
+          length / 2 +
+          (hasHandguard ? 18 : 8),
+        y: 0,
+        rotationDeg: 0,
+        length,
+        width,
+        anchors: {
+          mount: { x: -length / 2, y: 0 },
+        },
+      }),
+    );
   }
 
   const bounds = computeBounds(layout);
   const totalWeight = parts.reduce((sum, part) => sum + Number(part.weight), 0);
   const totalPrice = parts.reduce(
-    (sum, part) => sum + Number(computePartPrice(part.kind, part.weight)),
+    (sum, part) =>
+      sum + Number(computePartPrice(part.kind, part.weight, part.partLevel)),
     0,
   );
   const metrics: WeaponMetrics = {

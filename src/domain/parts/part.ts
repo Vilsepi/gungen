@@ -4,6 +4,7 @@ import {
   DimensionsMm,
   Grams,
   PartKind,
+  PartLevel,
   SquareMillimeters,
 } from "../../core/types";
 import { AttachmentPoint } from "./attachment-point";
@@ -11,6 +12,7 @@ import { AttachmentPoint } from "./attachment-point";
 export abstract class Part {
   readonly id: string;
   readonly kind: PartKind;
+  readonly partLevel: PartLevel;
   readonly displayName: string;
   readonly density: number;
   readonly baseRange: DimensionRangeMm;
@@ -22,6 +24,7 @@ export abstract class Part {
   constructor(input: {
     id: string;
     kind: PartKind;
+    partLevel: PartLevel;
     displayName: string;
     density: number;
     baseRange: DimensionRangeMm;
@@ -32,6 +35,7 @@ export abstract class Part {
   }) {
     this.id = input.id;
     this.kind = input.kind;
+    this.partLevel = input.partLevel;
     this.displayName = input.displayName;
     this.density = input.density;
     this.baseRange = input.baseRange;

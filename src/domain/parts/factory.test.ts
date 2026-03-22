@@ -74,6 +74,14 @@ describe("part factory weights", () => {
     }
   });
 
+  it("defaults part levels to Normal and accepts explicit upgrades", () => {
+    const receiver = new ReceiverPart("receiver-test");
+    const flashlight = new FlashlightPart("flashlight-test", "Rare");
+
+    expect(receiver.partLevel).toBe("Normal");
+    expect(flashlight.partLevel).toBe("Rare");
+  });
+
   it("keeps larger core parts heavier than small accessories", () => {
     const receiver = new ReceiverPart("receiver-test");
     const magazine = new MagazinePart("magazine-test");

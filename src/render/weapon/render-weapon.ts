@@ -109,9 +109,22 @@ export function renderWeaponSvg(
         fill: rgba(184, 196, 206, 0.6);
         stroke: none;
       }
-      .optic { --part-fill: rgba(146, 157, 167, 0.96); }
-      .muzzle-device, .barrel { --part-fill: rgba(132, 142, 152, 0.96); }
-      .laser, .flashlight { --part-fill: rgba(112, 124, 136, 0.96); }
+      .part.level-normal {
+        --part-fill: rgba(44, 50, 56, 0.96);
+        --part-stroke: rgba(196, 208, 217, 0.88);
+      }
+      .part.level-improved {
+        --part-fill: rgba(45, 58, 76, 0.98);
+        --part-stroke: rgba(156, 211, 255, 0.96);
+      }
+      .part.level-rare {
+        --part-fill: rgba(54, 72, 68, 0.98);
+        --part-stroke: rgba(185, 219, 203, 0.92);
+      }
+      .part.level-exotic {
+        --part-fill: rgba(63, 51, 35, 0.98);
+        --part-stroke: rgba(233, 205, 135, 0.94);
+      }
       .debug { vector-effect: non-scaling-stroke; }
     </style>
     ${content}

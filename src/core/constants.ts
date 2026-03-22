@@ -1,4 +1,4 @@
-import { DimensionRangeMm, mm, PartKind } from "./types";
+import { DimensionRangeMm, mm, PartKind, PartLevel } from "./types";
 
 export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
   receiver: {
@@ -75,6 +75,7 @@ export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
   },
 };
 
+// These densities are not based on realistic materials, just chosen to output realistic weights based on the inaccurate dimensions.
 export const partDensities: Record<PartKind, number> = {
   receiver: 0.04,
   barrel: 0.06,
@@ -91,6 +92,7 @@ export const partDensities: Record<PartKind, number> = {
   frontGrip: 0.05,
 };
 
+// These prices are not based on realistic materials, just chosen to output realistic prices based on the inaccurate dimensions.
 export const partPricePerGramCents: Record<PartKind, number> = {
   receiver: 220,
   barrel: 180,
@@ -104,6 +106,21 @@ export const partPricePerGramCents: Record<PartKind, number> = {
   flashlight: 140,
   muzzleDevice: 160,
   frontGrip: 85,
+};
+
+// Weighted chances for part upgrade levels to appear
+export const partLevelWeights: Record<PartLevel, number> = {
+  Normal: 75,
+  Improved: 15,
+  Rare: 7,
+  Exotic: 3,
+};
+
+export const partLevelPriceMultipliers: Record<PartLevel, number> = {
+  Normal: 0.5,
+  Improved: 1.2,
+  Rare: 1.5,
+  Exotic: 2.5,
 };
 
 export const corePartKinds: readonly PartKind[] = [
