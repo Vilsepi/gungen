@@ -11,7 +11,7 @@ export function selectAttachments(
   const selected = new Set<PartKind>();
 
   for (const partKind of preset.optionalParts) {
-    const probability = preset.attachmentWeights[partKind] ?? 0;
+    const probability = preset.attachmentOdds[partKind] ?? 0;
     if (probability > 0 && chance(prng, probability)) {
       selected.add(partKind);
     }

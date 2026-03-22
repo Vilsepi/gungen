@@ -1,7 +1,7 @@
 import { corePartKinds } from "../core/constants";
 import { CategoryPreset, WeaponCategory } from "../core/types";
 import { categoryDimensionRules } from "./category-dimension-rules";
-import { categoryAttachmentWeights } from "./category-probabilities";
+import { categoryAttachmentOdds } from "./category-probabilities";
 
 const longGunParts = [
   ...corePartKinds,
@@ -25,7 +25,7 @@ export const categoryPresets: Record<WeaponCategory, CategoryPreset> = {
       "muzzleDevice",
       "handguard",
     ],
-    attachmentWeights: categoryAttachmentWeights.Pistol,
+    attachmentOdds: categoryAttachmentOdds.Pistol,
     dimensionOverrides: categoryDimensionRules.Pistol,
     tags: ["compact", "sidearm"],
   },
@@ -41,7 +41,7 @@ export const categoryPresets: Record<WeaponCategory, CategoryPreset> = {
       "handguard",
       "frontGrip",
     ],
-    attachmentWeights: categoryAttachmentWeights.SMG,
+    attachmentOdds: categoryAttachmentOdds.SMG,
     dimensionOverrides: categoryDimensionRules.SMG,
     tags: ["compact", "pdw"],
   },
@@ -49,7 +49,7 @@ export const categoryPresets: Record<WeaponCategory, CategoryPreset> = {
     category: "Carbine",
     requiredParts: corePartKinds,
     optionalParts: [...longGunParts],
-    attachmentWeights: categoryAttachmentWeights.Carbine,
+    attachmentOdds: categoryAttachmentOdds.Carbine,
     dimensionOverrides: categoryDimensionRules.Carbine,
     tags: ["intermediate", "general-purpose"],
   },
@@ -57,7 +57,7 @@ export const categoryPresets: Record<WeaponCategory, CategoryPreset> = {
     category: "AssaultRifle",
     requiredParts: corePartKinds,
     optionalParts: [...longGunParts],
-    attachmentWeights: categoryAttachmentWeights.AssaultRifle,
+    attachmentOdds: categoryAttachmentOdds.AssaultRifle,
     dimensionOverrides: categoryDimensionRules.AssaultRifle,
     tags: ["service", "modular"],
   },
@@ -65,7 +65,7 @@ export const categoryPresets: Record<WeaponCategory, CategoryPreset> = {
     category: "BattleRifle",
     requiredParts: corePartKinds,
     optionalParts: [...longGunParts],
-    attachmentWeights: categoryAttachmentWeights.BattleRifle,
+    attachmentOdds: categoryAttachmentOdds.BattleRifle,
     dimensionOverrides: categoryDimensionRules.BattleRifle,
     tags: ["full-power", "robust"],
   },
@@ -73,7 +73,7 @@ export const categoryPresets: Record<WeaponCategory, CategoryPreset> = {
     category: "DMR",
     requiredParts: corePartKinds,
     optionalParts: [...longGunParts],
-    attachmentWeights: categoryAttachmentWeights.DMR,
+    attachmentOdds: categoryAttachmentOdds.DMR,
     dimensionOverrides: categoryDimensionRules.DMR,
     tags: ["precision", "support"],
   },
@@ -81,7 +81,7 @@ export const categoryPresets: Record<WeaponCategory, CategoryPreset> = {
     category: "Sniper",
     requiredParts: corePartKinds,
     optionalParts: ["stock", "optic", "muzzleDevice", "handguard"],
-    attachmentWeights: categoryAttachmentWeights.Sniper,
+    attachmentOdds: categoryAttachmentOdds.Sniper,
     dimensionOverrides: categoryDimensionRules.Sniper,
     tags: ["precision", "long-range"],
   },

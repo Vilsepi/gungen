@@ -28,21 +28,21 @@ export function pickOne<T>(prng: Prng, values: readonly T[]): T {
   return selected;
 }
 
-export function pickWeighted<T extends string>(
+export function pickByOdds<T extends string>(
   prng: Prng,
-  weights: Partial<Record<T, number>>,
+  odds: Partial<Record<T, number>>,
 ): T | null {
   const entries = (
-    Object.entries(weights) as Array<[T, number | undefined]>
+    Object.entries(odds) as Array<[T, number | undefined]>
   ).filter((entry): entry is [T, number] => (entry[1] ?? 0) > 0);
-  const total = entries.reduce((sum, [, weight]) => sum + weight, 0);
+  const total = entries.reduce((sum, [, oddsValue]) => sum + oddsValue, 0);
   if (total <= 0) {
     return null;
   }
 
   let cursor = prng.nextRange(0, total);
-  for (const [value, weight] of entries) {
-    cursor -= weight;
+  for (const [value, oddsValue] of entries) {
+    cursor -= oddsValue;
     if (cursor <= 0) {
       return value;
     }

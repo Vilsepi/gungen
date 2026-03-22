@@ -1,7 +1,7 @@
 import { Connection, PartKind, PartLevel, SeedBundle } from "../core/types";
-import { partLevelWeights } from "../core/constants";
+import { partLevelOdds } from "../core/constants";
 import { Part, partConstructors } from "../domain/parts";
-import { pickWeighted } from "../random/pick";
+import { pickByOdds } from "../random/pick";
 import { createPrng } from "../random/prng";
 import { normalizeSeedBundle } from "../random/seed";
 import { selectAttachments } from "./select-attachments";
@@ -13,7 +13,7 @@ function createPartId(kind: PartKind, index: number): string {
 }
 
 function selectPartLevel(prng: ReturnType<typeof createPrng>): PartLevel {
-  return pickWeighted(prng, partLevelWeights) ?? "Normal";
+  return pickByOdds(prng, partLevelOdds) ?? "Normal";
 }
 
 function buildConnections(

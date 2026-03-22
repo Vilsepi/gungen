@@ -219,7 +219,7 @@ Each category preset should define:
 
 - required core parts
 - allowed optional parts
-- probability weights for optional attachments
+- probability odds for optional attachments
 - min/max dimension overrides per part kind
 - category-specific limits such as handguard length
 - optional aesthetic tags that renderers can read later
@@ -450,7 +450,7 @@ Deliverable:
 
 1. Create category-specific required/allowed part rules.
 2. Add category-specific dimension overrides.
-3. Add attachment probability weights.
+3. Add attachment probability odds.
 4. Validate presets against the domain model.
 
 Deliverable:

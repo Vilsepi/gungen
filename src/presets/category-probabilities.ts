@@ -1,6 +1,6 @@
 import { PartKind, WeaponCategory } from "../core/types";
 
-export const categoryAttachmentWeights: Record<
+export const categoryAttachmentOdds: Record<
   WeaponCategory,
   Partial<Record<PartKind, number>>
 > = {

@@ -108,8 +108,8 @@ export const partPricePerGramCents: Record<PartKind, number> = {
   frontGrip: 85,
 };
 
-// Weighted chances for part upgrade levels to appear
-export const partLevelWeights: Record<PartLevel, number> = {
+// Odds for part upgrade levels to appear
+export const partLevelOdds: Record<PartLevel, number> = {
   Normal: 75,
   Improved: 15,
   Rare: 7,

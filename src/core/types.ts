@@ -126,7 +126,7 @@ export interface CategoryPreset {
   category: WeaponCategory;
   requiredParts: readonly PartKind[];
   optionalParts: readonly PartKind[];
-  attachmentWeights: Partial<Record<PartKind, number>>;
+  attachmentOdds: Partial<Record<PartKind, number>>;
   dimensionOverrides: Partial<Record<PartKind, Partial<DimensionRangeMm>>>;
   tags: readonly string[];
 }
