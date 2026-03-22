@@ -20,16 +20,16 @@ export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
     maxSizeY: mm(100),
   },
   magazine: {
-    minSizeX: mm(90),
-    maxSizeX: mm(250),
-    minSizeY: mm(33),
-    maxSizeY: mm(80),
+    minSizeX: mm(33),
+    maxSizeX: mm(80),
+    minSizeY: mm(90),
+    maxSizeY: mm(250),
   },
   pistolGrip: {
-    minSizeX: mm(70),
-    maxSizeX: mm(115),
-    minSizeY: mm(45),
-    maxSizeY: mm(60),
+    minSizeX: mm(45),
+    maxSizeX: mm(60),
+    minSizeY: mm(70),
+    maxSizeY: mm(115),
   },
   handguard: {
     minSizeX: mm(0),
@@ -68,10 +68,10 @@ export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
     maxSizeY: mm(45),
   },
   frontGrip: {
-    minSizeX: mm(30),
-    maxSizeX: mm(90),
-    minSizeY: mm(20),
-    maxSizeY: mm(34),
+    minSizeX: mm(20),
+    maxSizeX: mm(34),
+    minSizeY: mm(30),
+    maxSizeY: mm(90),
   },
 };
 
