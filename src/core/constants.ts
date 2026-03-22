@@ -14,10 +14,10 @@ export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
     maxWidth: mm(24),
   },
   magwell: {
-    minLength: mm(48),
-    maxLength: mm(96),
-    minWidth: mm(24),
-    maxWidth: mm(38),
+    minLength: mm(20),
+    maxLength: mm(50),
+    minWidth: mm(50),
+    maxWidth: mm(100),
   },
   magazine: {
     minLength: mm(90),
