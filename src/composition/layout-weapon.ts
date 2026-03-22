@@ -22,6 +22,13 @@ const PISTOL_ROT_DEG = 10;
 const PISTOL_SIN = Math.sin((PISTOL_ROT_DEG * Math.PI) / 180);
 const PISTOL_COS = Math.cos((PISTOL_ROT_DEG * Math.PI) / 180);
 
+const PISTOL_GRIP_Y_RATIO = 0.78;
+const PISTOL_GRIP_X_RATIO = -0.1;
+const LONG_GUN_PISTOL_GRIP_X_RATIO = -0.28;
+const LONG_GUN_MAGWELL_X_RATIO = 0.16;
+const LONG_GUN_MAGWELL_Y_RATIO = 0.55;
+const LONG_GUN_PISTOL_GRIP_ROT_DEG = 22;
+
 // Keep a slight amount of the magazine exposed below the magwell.
 const MAGAZINE_SEAT_DROP_MM = 4;
 
@@ -152,15 +159,19 @@ export function layoutWeapon(
   let magX: number;
   let magY: number;
   let magRot: number;
+  let gripX: number;
+  let gripY: number;
+  let gripRot: number;
 
   if (isPistol) {
     // For pistols: align magwell and magazine with the pistol grip (same rotation).
     // The magwell sits directly below the grip, and the magazine sits below the magwell.
-    const gripCenterX = -receiverSizeX * 0.1;
-    const gripCenterY = receiverSizeY * 0.78;
+    gripX = receiverSizeX * PISTOL_GRIP_X_RATIO;
+    gripY = receiverSizeY * PISTOL_GRIP_Y_RATIO;
+    gripRot = LONG_GUN_PISTOL_GRIP_ROT_DEG;
     magwellRot = PISTOL_ROT_DEG;
-    magwellX = gripCenterX - ((gripSizeX + magwellSizeX) / 2) * PISTOL_SIN;
-    magwellY = gripCenterY + ((gripSizeX + magwellSizeX) / 2) * PISTOL_COS;
+    magwellX = gripX - ((gripSizeX + magwellSizeX) / 2) * PISTOL_SIN;
+    magwellY = gripY + ((gripSizeX + magwellSizeX) / 2) * PISTOL_COS;
     magRot = PISTOL_ROT_DEG;
     magX =
       magwellX -
@@ -171,9 +182,12 @@ export function layoutWeapon(
   } else {
     // For long guns: magwell hangs below the receiver; magazine centerline aligns
     // with the magwell centerline so the feed end seats flush in the magwell.
+    gripX = receiverSizeX * LONG_GUN_PISTOL_GRIP_X_RATIO;
+    gripY = receiverSizeY * PISTOL_GRIP_Y_RATIO;
+    gripRot = LONG_GUN_PISTOL_GRIP_ROT_DEG;
     magwellRot = MAGWELL_ROT_DEG;
-    magwellX = receiverSizeX * 0.05;
-    magwellY = receiverSizeY * 0.55;
+    magwellX = receiverSizeX * LONG_GUN_MAGWELL_X_RATIO;
+    magwellY = receiverSizeY * LONG_GUN_MAGWELL_Y_RATIO;
     magRot = MAGWELL_ROT_DEG;
     magX =
       magwellX -
@@ -214,9 +228,9 @@ export function layoutWeapon(
 
   layout.push(
     createLayoutPart(pistolGrip, {
-      x: -receiverSizeX * 0.1,
-      y: receiverSizeY * 0.78,
-      rotationDeg: 22,
+      x: gripX,
+      y: gripY,
+      rotationDeg: gripRot,
       sizeX: gripSizeX,
       sizeY: gripSizeY,
       anchors: {

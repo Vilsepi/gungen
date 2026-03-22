@@ -107,6 +107,7 @@ describe("layoutWeapon pricing", () => {
     const handguard = getPart(result.layout, "handguard");
     const magwell = getPart(result.layout, "magwell");
     const magazine = getPart(result.layout, "magazine");
+    const pistolGrip = getPart(result.layout, "pistolGrip");
     const optic = getPart(result.layout, "optic");
     const laser = getPart(result.layout, "laser");
     const flashlight = getPart(result.layout, "flashlight");
@@ -139,6 +140,30 @@ describe("layoutWeapon pricing", () => {
     const magazineFeed = resolveAnchor(magazine, getAnchor(magazine, "feed"));
     expect(magazineFeed.x).toBeCloseTo(magwellSeat.x, 10);
     expect(magazineFeed.y - magwellSeat.y).toBeCloseTo(4, 10);
+
+    expect(magwell.x).toBeGreaterThan(pistolGrip.x + receiver.sizeX * 0.3);
+    expect(pistolGrip.x).toBeLessThan(receiver.x - receiver.sizeX * 0.2);
+    expect(pistolGrip.x).toBeGreaterThan(receiver.x - receiver.sizeX / 2);
+  });
+
+  it("keeps pistol grip and magazine assembly compact on pistols", () => {
+    const result = layoutWeapon(
+      [
+        new ReceiverPart("receiver-test"),
+        new BarrelPart("barrel-test"),
+        new MagwellPart("magwell-test"),
+        new MagazinePart("magazine-test"),
+        new PistolGripPart("pistol-grip-test"),
+      ],
+      "Pistol",
+    );
+
+    const receiver = getPart(result.layout, "receiver");
+    const magwell = getPart(result.layout, "magwell");
+    const pistolGrip = getPart(result.layout, "pistolGrip");
+
+    expect(pistolGrip.x).toBeCloseTo(-receiver.sizeX * 0.1, 10);
+    expect(magwell.x).toBeLessThan(pistolGrip.x);
   });
 
   it("computes bounds that include rotated vertical parts", () => {
