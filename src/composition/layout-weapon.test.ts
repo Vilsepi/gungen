@@ -52,7 +52,7 @@ function getAnchor(part: LayoutPart, name: string): LayoutAnchor {
 }
 
 describe("layoutWeapon pricing", () => {
-  it("sums total price from each part weight and kind multiplier", () => {
+  it("sums total price from each part mass and kind multiplier", () => {
     const parts = [
       new ReceiverPart("receiver-test"),
       new BarrelPart("barrel-test", "Improved"),
@@ -63,25 +63,22 @@ describe("layoutWeapon pricing", () => {
     ];
 
     const result = layoutWeapon(parts);
-    const expectedTotalWeight = parts.reduce(
-      (sum, part) => sum + Number(part.weight),
+    const expectedTotalMass = parts.reduce(
+      (sum, part) => sum + Number(part.mass),
       0,
     );
     const expectedTotalPrice = parts.reduce(
       (sum, part) =>
         sum +
         Math.round(
-          Number(part.weight) *
+          Number(part.mass) *
             partPricePerGramCents[part.kind] *
             partLevelPriceMultipliers[part.partLevel],
         ),
       0,
     );
 
-    expect(Number(result.metrics.totalWeight)).toBeCloseTo(
-      expectedTotalWeight,
-      10,
-    );
+    expect(Number(result.metrics.totalMass)).toBeCloseTo(expectedTotalMass, 10);
     expect(Number(result.metrics.totalPrice)).toBe(expectedTotalPrice);
   });
 

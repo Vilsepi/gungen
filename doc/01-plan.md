@@ -9,7 +9,7 @@ Build a browser app that:
 - lets the user choose a weapon category
 - exposes three rerollable seeds: Data Model, Part Size, Aesthetic Detail
 - deterministically generates a valid firearm bill of materials from those inputs
-- computes part dimensions and derived weights in millimeters
+- computes part dimensions and derived masses in millimeters
 - renders a side-view SVG of the weapon pointing left
 - keeps domain logic, randomization, composition, and rendering clearly separated under `src/`
 
@@ -78,7 +78,7 @@ src/
       anchors.ts
     physics/
       density.ts
-      weight.ts
+      mass.ts
 
   generation/
     generate-weapon.ts
@@ -156,7 +156,7 @@ Create an abstract `Part` base class with:
 - outer `dimensionsMm` with min/max bounds and resolved actual size
 - `density`
 - computed `area`
-- computed `weight`
+- computed `mass`
 - list of `attachmentPoints`
 
 Each concrete part class extends `Part` and defines:
@@ -185,7 +185,7 @@ Create `Weapon` as the main aggregate containing:
 - connection list
 - derived root receiver id
 - resolved layout result after composition
-- metadata such as total weight and bounding box
+- metadata such as total mass and bounding box
 
 ## 5. Deterministic Randomization Strategy
 
@@ -285,13 +285,13 @@ Create valid deterministic connections:
 - accessories attach to handguard rails or underside
 - stock attaches to receiver rear
 
-### Stage 5: Resolve dimensions and weight
+### Stage 5: Resolve dimensions and mass
 
 Use the part size seed to resolve actual dimensions within category-constrained ranges. Then compute:
 
 - area from outer length and width
-- weight from area times density
-- total weapon weight
+- mass from area times density
+- total weapon mass
 
 ### Stage 6: Validate
 
@@ -395,7 +395,7 @@ Build a simple but clear single-page tool first.
 - generate button if generation is not fully reactive
 - SVG preview pane
 - summary panel for:
-  - total weight
+  - total mass
   - part list
   - resolved dimensions
   - selected attachments
@@ -439,7 +439,7 @@ Deliverable:
 1. Implement the abstract `Part` class.
 2. Implement `AttachmentPoint` and connection types.
 3. Create one concrete class per part type.
-4. Implement density and weight helpers.
+4. Implement density and mass helpers.
 5. Encode default min/max dimension data per part kind.
 
 Deliverable:
@@ -473,13 +473,13 @@ Deliverable:
 
 1. Resolve actual dimensions from the part size seed.
 2. Apply category overrides to part limits.
-3. Compute part area and weight.
+3. Compute part area and mass.
 4. Compute aggregate weapon metrics.
 5. Add validation for dimension ranges.
 
 Deliverable:
 
-- a fully sized weapon model with total weight.
+- a fully sized weapon model with total mass.
 
 ### Phase 7: Layout/composition
 
@@ -522,7 +522,7 @@ Deliverable:
 1. Build category and seed controls.
 2. Wire UI state to the generation pipeline.
 3. Add reroll buttons for each individual seed.
-4. Display part list, dimensions, and total weight.
+4. Display part list, dimensions, and total mass.
 5. Add export SVG and copy-seed actions.
 
 Deliverable:
@@ -547,7 +547,7 @@ Before considering the app complete, verify:
 
 - the same full seed bundle always gives the same SVG and metrics
 - rerolling only the data seed changes BOM but preserves deterministic behavior for that new seed
-- rerolling only the size seed changes dimensions and weight but not selected parts
+- rerolling only the size seed changes dimensions and mass but not selected parts
 - rerolling only the aesthetic seed changes visual detail but not BOM or resolved outer dimensions
 - every generated weapon category produces a valid connected graph
 - no unsupported attachment combination appears
@@ -609,6 +609,6 @@ The first usable version is done when:
 - a user can select a category and reroll each seed independently
 - the app always generates a valid deterministic weapon model
 - the weapon renders as a coherent left-facing SVG line drawing
-- all generated parts have typed domain representations, constraints, dimensions, and weight
+- all generated parts have typed domain representations, constraints, dimensions, and mass
 - code is separated into UI, randomization, domain, generation, composition, and rendering layers
 - the project runs with Vite hot reload and formats cleanly

@@ -75,7 +75,7 @@ export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
   },
 };
 
-// These densities are not based on realistic materials, just chosen to output realistic weights based on the inaccurate dimensions.
+// These densities are not based on realistic materials, just chosen to output realistic masses based on the inaccurate dimensions.
 export const partDensities: Record<PartKind, number> = {
   receiver: 0.04,
   barrel: 0.06,

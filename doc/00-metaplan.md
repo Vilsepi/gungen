@@ -33,7 +33,7 @@ A weapon might also include a random number of different attachments, such as:
 
 Before a weapon is rendered, we model it as a bill of materials. Every weapon type have a list of must have core parts, and then every weapon type have an additional list of allowed components.
 
-Each part should be modeled as its own class, and we may add more parts later. Every part category also has minimum and maximum outer dimensions (length and width) in millimeters. From the outer dimension we can calculate area, and each part category has a constant density, which allows us to calculate a weight for the part.
+Each part should be modeled as its own class, and we may add more parts later. Every part category also has minimum and maximum outer dimensions (length and width) in millimeters. From the outer dimension we can calculate area, and each part category has a constant density, which allows us to calculate a mass for the part.
 
 When the randomization has chosen a bunch of attachments, we have a hierarchical bill of materials of all the parts the weapons consists of.
 
@@ -72,7 +72,7 @@ For every weapon, we pick a category and then several random different `seeds`.
 
 - Category is either Pistol, SMG, Carbine, AssaultRifle, BattleRifle, DMR, Sniper
 - **Data Model Seed** affects the bill of materials: which attachments we pick
-- **Part Size Seed** affects the rough outer millimeter dimension of every part and thus weight
+- **Part Size Seed** affects the rough outer millimeter dimension of every part and thus mass
 - **Aesthetic Detail Seed** affects the exact SVG rendering details within the given outer dimensions
 
 With these separate seeds, the user can reroll each seed separately. Once the user has settled with the category, they can continue to reroll each seed.

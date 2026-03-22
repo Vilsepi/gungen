@@ -19,7 +19,7 @@ export abstract class Part {
   readonly attachmentPoints: AttachmentPoint[];
   dimensionsMm: DimensionsMm;
   area: SquareMillimeters;
-  weight: Grams;
+  mass: Grams;
 
   constructor(input: {
     id: string;
@@ -31,7 +31,7 @@ export abstract class Part {
     attachmentPointSpecs: AttachmentPointSpec[];
     dimensionsMm: DimensionsMm;
     area: SquareMillimeters;
-    weight: Grams;
+    mass: Grams;
   }) {
     this.id = input.id;
     this.kind = input.kind;
@@ -41,7 +41,7 @@ export abstract class Part {
     this.baseRange = input.baseRange;
     this.dimensionsMm = input.dimensionsMm;
     this.area = input.area;
-    this.weight = input.weight;
+    this.mass = input.mass;
     this.attachmentPoints = input.attachmentPointSpecs.map(
       (spec) => new AttachmentPoint(input.id, spec),
     );

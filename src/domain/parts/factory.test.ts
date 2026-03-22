@@ -16,7 +16,7 @@ import {
   partConstructors,
 } from "./factory";
 
-function expectedWeightFor(kind: PartKind): number {
+function expectedMassFor(kind: PartKind): number {
   const range = baseDimensionRanges[kind];
   return Number(range.minLength) * Number(range.minWidth) * partDensities[kind];
 }
@@ -29,14 +29,14 @@ interface NumericRange {
 interface PartRealismRange {
   lengthMm: NumericRange;
   widthMm: NumericRange;
-  weightG: NumericRange;
+  massG: NumericRange;
 }
 
 const realisticRanges: Partial<Record<PartKind, PartRealismRange>> = {
   receiver: {
     lengthMm: { min: 100, max: 450 },
     widthMm: { min: 20, max: 200 },
-    weightG: { min: 100, max: 2000 },
+    massG: { min: 100, max: 2000 },
   },
 };
 
@@ -65,12 +65,12 @@ function expectInRange(
   ).toBeLessThanOrEqual(range.max);
 }
 
-describe("part factory weights", () => {
-  it("derives each part weight from its minimum dimensions and density", () => {
+describe("part factory masses", () => {
+  it("derives each part mass from its minimum dimensions and density", () => {
     for (const kind of partKinds) {
       const part = new partConstructors[kind](`${kind}-test`);
 
-      expect(Number(part.weight)).toBeCloseTo(expectedWeightFor(kind), 10);
+      expect(Number(part.mass)).toBeCloseTo(expectedMassFor(kind), 10);
     }
   });
 
@@ -82,18 +82,18 @@ describe("part factory weights", () => {
     expect(flashlight.partLevel).toBe("Rare");
   });
 
-  it("keeps larger core parts heavier than small accessories", () => {
+  it("keeps larger core parts more massive than small accessories", () => {
     const receiver = new ReceiverPart("receiver-test");
     const magazine = new MagazinePart("magazine-test");
     const flashlight = new FlashlightPart("flashlight-test");
     const frontGrip = new partConstructors.frontGrip("frontgrip-test");
 
-    expect(Number(receiver.weight)).toBeGreaterThan(Number(magazine.weight));
-    expect(Number(magazine.weight)).toBeGreaterThan(Number(flashlight.weight));
-    expect(Number(flashlight.weight)).toBeGreaterThan(Number(frontGrip.weight));
+    expect(Number(receiver.mass)).toBeGreaterThan(Number(magazine.mass));
+    expect(Number(magazine.mass)).toBeGreaterThan(Number(flashlight.mass));
+    expect(Number(flashlight.mass)).toBeGreaterThan(Number(frontGrip.mass));
   });
 
-  it("keeps randomly generated part dimensions and weights within realistic ranges", () => {
+  it("keeps randomly generated part dimensions and masses within realistic ranges", () => {
     const sampleSeeds = [11, 97, 451, 1337, 9001];
 
     for (const kind of partKinds) {
@@ -117,9 +117,9 @@ describe("part factory weights", () => {
             `${kind} width in ${category}`,
           );
           expectInRange(
-            Number(part.weight),
-            configuredRange.weightG,
-            `${kind} weight in ${category}`,
+            Number(part.mass),
+            configuredRange.massG,
+            `${kind} mass in ${category}`,
           );
         }
       }

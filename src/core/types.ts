@@ -111,7 +111,7 @@ export interface LayoutBounds {
 }
 
 export interface WeaponMetrics {
-  totalWeight: Grams;
+  totalMass: Grams;
   totalPrice: Cents;
   totalLength: Millimeters;
   totalHeight: Millimeters;
@@ -138,7 +138,7 @@ export interface WeaponSummaryItem {
   displayName: string;
   length: number;
   width: number;
-  weight: number;
+  mass: number;
 }
 
 export function mm(value: number): Millimeters {

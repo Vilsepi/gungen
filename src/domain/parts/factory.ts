@@ -7,7 +7,7 @@ import {
   DimensionsMm,
   DimensionRangeMm,
 } from "../../core/types";
-import { computeArea, computeWeight } from "../physics/weight";
+import { computeArea, computeMass } from "../physics/mass";
 import { Part } from "./part";
 
 class GenericPart extends Part {
@@ -27,7 +27,7 @@ class GenericPart extends Part {
       Number(dimensionsMm.length),
       Number(dimensionsMm.width),
     );
-    const weight = computeWeight(area, partDensities[kind]);
+    const mass = computeMass(area, partDensities[kind]);
     super({
       id,
       kind,
@@ -38,7 +38,7 @@ class GenericPart extends Part {
       attachmentPointSpecs,
       dimensionsMm,
       area,
-      weight,
+      mass,
     });
   }
 }

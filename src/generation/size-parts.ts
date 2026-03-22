@@ -7,7 +7,7 @@ import {
   WeaponCategory,
 } from "../core/types";
 import { Part } from "../domain/parts";
-import { computeArea, computeWeight } from "../domain/physics/weight";
+import { computeArea, computeMass } from "../domain/physics/mass";
 import { rangeFloat } from "../random/pick";
 import { Prng } from "../random/prng";
 import { categoryPresets } from "../presets/category-attachment-rules";
@@ -51,6 +51,6 @@ export function sizeParts(
       Number(dimensions.length),
       Number(dimensions.width),
     );
-    part.weight = computeWeight(part.area, part.density);
+    part.mass = computeMass(part.area, part.density);
   }
 }

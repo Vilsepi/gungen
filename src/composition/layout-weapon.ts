@@ -276,14 +276,14 @@ export function layoutWeapon(
   }
 
   const bounds = computeBounds(layout);
-  const totalWeight = parts.reduce((sum, part) => sum + Number(part.weight), 0);
+  const totalMass = parts.reduce((sum, part) => sum + Number(part.mass), 0);
   const totalPrice = parts.reduce(
     (sum, part) =>
-      sum + Number(computePartPrice(part.kind, part.weight, part.partLevel)),
+      sum + Number(computePartPrice(part.kind, part.mass, part.partLevel)),
     0,
   );
   const metrics: WeaponMetrics = {
-    totalWeight: grams(totalWeight),
+    totalMass: grams(totalMass),
     totalPrice: cents(totalPrice),
     totalLength: mm(bounds.maxX - bounds.minX),
     totalHeight: mm(bounds.maxY - bounds.minY),

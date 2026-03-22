@@ -5,20 +5,20 @@ import {
 import { cents, Cents, Grams, PartKind, PartLevel } from "../../core/types";
 
 export function computePrice(
-  weight: Grams,
+  mass: Grams,
   pricePerGramCents: number,
   multiplier = 1,
 ): Cents {
-  return cents(Math.round(Number(weight) * pricePerGramCents * multiplier));
+  return cents(Math.round(Number(mass) * pricePerGramCents * multiplier));
 }
 
 export function computePartPrice(
   kind: PartKind,
-  weight: Grams,
+  mass: Grams,
   partLevel: PartLevel,
 ): Cents {
   return computePrice(
-    weight,
+    mass,
     partPricePerGramCents[kind],
     partLevelPriceMultipliers[partLevel],
   );
