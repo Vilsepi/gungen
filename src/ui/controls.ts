@@ -36,7 +36,6 @@ export function renderControls(store: Store): string {
 
   return `
     <div class="section">
-      <span class="eyebrow">Generator Controls</span>
       <div class="control-row">
         <label for="category">Category</label>
         <select id="category" name="category">${options}</select>
@@ -45,13 +44,11 @@ export function renderControls(store: Store): string {
         <button type="button" class="primary" data-action="reroll-all">Randomize</button>
       </div>
       <div class="control-subsection">
-        <span class="subheading">Refinement</span>
         ${seedMarkup}
       </div>
     </div>
 
     <div class="section utility-section">
-      <span class="eyebrow">Utilities</span>
       <div class="inline-actions utility-actions">
         <button type="button" data-action="toggle-debug">${state.debug ? "Hide Debug" : "Show Debug"}</button>
         <button type="button" data-action="copy-seeds">Copy Seeds</button>

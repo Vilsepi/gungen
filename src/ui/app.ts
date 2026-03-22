@@ -190,7 +190,6 @@ function renderApp(root: HTMLElement, store: Store): void {
     <div class="shell">
       <header class="hero">
         <div>
-          <span class="eyebrow">Procedural weapon picker</span>
           <h1>Gungen</h1>
         </div>
       </header>
