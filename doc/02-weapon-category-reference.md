@@ -4,7 +4,7 @@ This document collects real-world small arms that can serve as visual and dimens
 
 The selection is biased toward modern weapons with polymer furniture, low mass, and modular attachment interfaces or integrated optics/rail systems.
 
-These examples are reference anchors, not hard taxonomy rules. Some weapons sit near the boundary between categories depending on barrel length, caliber, doctrine, or configuration.
+These examples are reference anchors, not hard taxonomy rules. Some weapons sit near the boundary between categories depending on barrel sizeX, caliber, doctrine, or configuration.
 
 ## Pistol
 

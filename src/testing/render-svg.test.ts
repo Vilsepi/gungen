@@ -70,7 +70,7 @@ describe("renderSvgCanvas", () => {
 });
 
 describe("renderWeaponSvg dimensions", () => {
-  it("svg element sizes match bom part dimensions within centimeter precision", () => {
+  it("svg element sizes match bom part axes within centimeter precision", () => {
     const CM_PRECISION_MM = 10;
     const seedBundle = {
       category: "AssaultRifle",
@@ -84,15 +84,15 @@ describe("renderWeaponSvg dimensions", () => {
     for (const layoutPart of weapon.layout) {
       const bomPart = weapon.parts.find((p) => p.id === layoutPart.partId);
       expect(bomPart, `bom part for ${layoutPart.kind}`).toBeDefined();
-      const expectedLength = Number(bomPart!.dimensionsMm.length);
-      const expectedWidth = Number(bomPart!.dimensionsMm.width);
+      const expectedSizeX = Number(bomPart!.dimensionsMm.sizeX);
+      const expectedSizeY = Number(bomPart!.dimensionsMm.sizeY);
 
-      expect(layoutPart.length, `${layoutPart.kind} layout length`).toBeCloseTo(
-        expectedLength,
+      expect(layoutPart.sizeX, `${layoutPart.kind} layout sizeX`).toBeCloseTo(
+        expectedSizeX,
         1,
       );
-      expect(layoutPart.width, `${layoutPart.kind} layout width`).toBeCloseTo(
-        expectedWidth,
+      expect(layoutPart.sizeY, `${layoutPart.kind} layout sizeY`).toBeCloseTo(
+        expectedSizeY,
         1,
       );
 
@@ -114,19 +114,19 @@ describe("renderWeaponSvg dimensions", () => {
       if (groupMatch) {
         const shellElement = groupMatch[0];
 
-        const widthMatch = /\bwidth="([\d.eE+-]+)"/.exec(shellElement);
-        const heightMatch = /\bheight="([\d.eE+-]+)"/.exec(shellElement);
+        const sizeXAttrMatch = /\bwidth="([\d.eE+-]+)"/.exec(shellElement);
+        const sizeYAttrMatch = /\bheight="([\d.eE+-]+)"/.exec(shellElement);
 
-        if (widthMatch?.[1] && heightMatch?.[1]) {
-          const svgWidth = parseFloat(widthMatch[1]);
-          const svgHeight = parseFloat(heightMatch[1]);
+        if (sizeXAttrMatch?.[1] && sizeYAttrMatch?.[1]) {
+          const svgSizeX = parseFloat(sizeXAttrMatch[1]);
+          const svgSizeY = parseFloat(sizeYAttrMatch[1]);
           expect(
-            Math.abs(svgWidth - expectedLength),
-            `${layoutPart.kind} svg shell rect width vs bom length`,
+            Math.abs(svgSizeX - expectedSizeX),
+            `${layoutPart.kind} svg shell rect sizeX vs bom sizeX`,
           ).toBeLessThan(CM_PRECISION_MM);
           expect(
-            Math.abs(svgHeight - expectedWidth),
-            `${layoutPart.kind} svg shell rect height vs bom width`,
+            Math.abs(svgSizeY - expectedSizeY),
+            `${layoutPart.kind} svg shell rect sizeY vs bom sizeY`,
           ).toBeLessThan(CM_PRECISION_MM);
         }
       }

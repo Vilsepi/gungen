@@ -82,8 +82,8 @@ function getSummaryItems(store: Store): WeaponSummaryItem[] {
     kind: part.kind,
     partLevel: part.partLevel,
     displayName: part.displayName,
-    length: Number(part.dimensionsMm.length),
-    width: Number(part.dimensionsMm.width),
+    sizeX: Number(part.dimensionsMm.sizeX),
+    sizeY: Number(part.dimensionsMm.sizeY),
     mass: Number(part.mass),
   }));
 }
@@ -123,7 +123,7 @@ function renderSummary(store: Store): string {
     <div class="summary-grid">
       <div class="stat"><span class="stat-label">Mass</span><span class="stat-value">${formatDecimal(Number(state.weapon.metrics.totalMass) / 1000, 2)} kg</span></div>
       <div class="stat"><span class="stat-label">Price</span><span class="stat-value">${formatCurrency(Number(state.weapon.metrics.totalPrice))}</span></div>
-      <div class="stat"><span class="stat-label">Dimensions</span><span class="stat-value">${formatDecimal(Number(state.weapon.metrics.totalLength) / 10, 1)} x ${formatDecimal(Number(state.weapon.metrics.totalHeight) / 10, 1)} cm</span></div>
+      <div class="stat"><span class="stat-label">Dimensions</span><span class="stat-value">${formatDecimal(Number(state.weapon.metrics.totalSizeX) / 10, 1)} x ${formatDecimal(Number(state.weapon.metrics.totalSizeY) / 10, 1)} cm</span></div>
     </div>
     <div class="list-grid">
       <div class="list-card">
@@ -132,7 +132,7 @@ function renderSummary(store: Store): string {
           ${summaryItems
             .map(
               (item) =>
-                `<li>${item.displayName} (${item.partLevel}): ${formatNumber(item.length)} x ${formatNumber(item.width)} mm, ${formatNumber(item.mass)} g</li>`,
+                `<li>${item.displayName} (${item.partLevel}): ${formatNumber(item.sizeX)} x ${formatNumber(item.sizeY)} mm, ${formatNumber(item.mass)} g</li>`,
             )
             .join("")}
         </ul>

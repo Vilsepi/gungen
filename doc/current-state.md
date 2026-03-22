@@ -12,7 +12,7 @@ The generator currently produces one complete weapon at a time with:
 - a bill of materials made of typed parts
 - a connection list between those parts
 - resolved physical dimensions for every part
-- derived metrics such as total mass, total price, total length, and total height
+- derived metrics such as total mass, total price, total sizeX, and total sizeY
 - a 2D layout for every part
 - a final left-facing SVG illustration
 
@@ -223,8 +223,8 @@ The current sizing model works like this:
 
 1. Start from base min and max dimensions for the part kind.
 2. Apply category-specific overrides.
-3. Sample length and width from the resulting range.
-4. Compute area as `length * width`.
+3. Sample sizeX and sizeY from the resulting range.
+4. Compute area as `sizeX * sizeY`.
 5. Compute mass from area and part density.
 
 An important detail is that size sampling is forked per part using the part id, so the size stream stays deterministic even as the exact set of parts changes.
@@ -239,8 +239,8 @@ After layout, the project computes:
 
 - total mass
 - total price
-- total length
-- total height
+- total sizeX
+- total sizeY
 
 Price is derived from:
 
@@ -325,7 +325,7 @@ That means each renderer gets:
 
 - position
 - rotation
-- resolved outer length and width
+- resolved outer sizeX and sizeY
 - part kind
 - part level
 

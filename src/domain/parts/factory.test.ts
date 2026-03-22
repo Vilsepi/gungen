@@ -18,7 +18,7 @@ import {
 
 function expectedMassFor(kind: PartKind): number {
   const range = baseDimensionRanges[kind];
-  return Number(range.minLength) * Number(range.minWidth) * partDensities[kind];
+  return Number(range.minSizeX) * Number(range.minSizeY) * partDensities[kind];
 }
 
 interface NumericRange {
@@ -27,15 +27,15 @@ interface NumericRange {
 }
 
 interface PartRealismRange {
-  lengthMm: NumericRange;
-  widthMm: NumericRange;
+  sizeXMm: NumericRange;
+  sizeYMm: NumericRange;
   massG: NumericRange;
 }
 
 const realisticRanges: Partial<Record<PartKind, PartRealismRange>> = {
   receiver: {
-    lengthMm: { min: 100, max: 450 },
-    widthMm: { min: 20, max: 200 },
+    sizeXMm: { min: 100, max: 450 },
+    sizeYMm: { min: 20, max: 200 },
     massG: { min: 100, max: 2000 },
   },
 };
@@ -107,14 +107,14 @@ describe("part factory masses", () => {
           const part = createSizedPart(kind, category, seed);
 
           expectInRange(
-            Number(part.dimensionsMm.length),
-            configuredRange.lengthMm,
-            `${kind} length in ${category}`,
+            Number(part.dimensionsMm.sizeX),
+            configuredRange.sizeXMm,
+            `${kind} sizeX in ${category}`,
           );
           expectInRange(
-            Number(part.dimensionsMm.width),
-            configuredRange.widthMm,
-            `${kind} width in ${category}`,
+            Number(part.dimensionsMm.sizeY),
+            configuredRange.sizeYMm,
+            `${kind} sizeY in ${category}`,
           );
           expectInRange(
             Number(part.mass),

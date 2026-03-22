@@ -23,12 +23,12 @@ export function renderRoundedBody(
   inner: string,
   radiusFactor = 0.08,
 ): string {
-  const rx = Math.max(1.5, part.width * radiusFactor);
+  const rx = Math.max(1.5, part.sizeY * radiusFactor);
   return renderPartGroup(
     part,
     bodyClass,
     `
-      <rect class="shell" x="${-part.length / 2}" y="${-part.width / 2}" width="${part.length}" height="${part.width}" rx="${rx}" />
+      <rect class="shell" x="${-part.sizeX / 2}" y="${-part.sizeY / 2}" width="${part.sizeX}" height="${part.sizeY}" rx="${rx}" />
       ${inner}
     `,
   );

@@ -13,8 +13,8 @@ function computeHalfExtents(part: LayoutPart): {
   halfX: number;
   halfY: number;
 } {
-  const major = usesVerticalMajorAxis(part) ? part.width : part.length;
-  const minor = usesVerticalMajorAxis(part) ? part.length : part.width;
+  const major = usesVerticalMajorAxis(part) ? part.sizeY : part.sizeX;
+  const minor = usesVerticalMajorAxis(part) ? part.sizeX : part.sizeY;
   const radians = (part.rotationDeg * Math.PI) / 180;
   const cos = Math.abs(Math.cos(radians));
   const sin = Math.abs(Math.sin(radians));

@@ -111,10 +111,10 @@ describe("layoutWeapon pricing", () => {
     const frontGrip = getPart(result.layout, "frontGrip");
 
     const opticMount = resolveAnchor(optic, getAnchor(optic, "mount"));
-    expect(opticMount.y).toBeCloseTo(receiver.y - receiver.width / 2, 10);
+    expect(opticMount.y).toBeCloseTo(receiver.y - receiver.sizeY / 2, 10);
 
     const laserMount = resolveAnchor(laser, getAnchor(laser, "mount"));
-    expect(laserMount.y).toBeCloseTo(handguard.y - handguard.width / 2, 10);
+    expect(laserMount.y).toBeCloseTo(handguard.y - handguard.sizeY / 2, 10);
     expect(laser.x).toBeGreaterThanOrEqual(handguard.x);
 
     const flashlightMount = resolveAnchor(
@@ -122,7 +122,7 @@ describe("layoutWeapon pricing", () => {
       getAnchor(flashlight, "mount"),
     );
     expect(flashlightMount.y).toBeCloseTo(
-      handguard.y + handguard.width / 2,
+      handguard.y + handguard.sizeY / 2,
       10,
     );
     expect(flashlight.x).toBeGreaterThanOrEqual(handguard.x);
@@ -131,7 +131,7 @@ describe("layoutWeapon pricing", () => {
       frontGrip,
       getAnchor(frontGrip, "mount"),
     );
-    expect(frontGripMount.y).toBeCloseTo(handguard.y + handguard.width / 2, 10);
+    expect(frontGripMount.y).toBeCloseTo(handguard.y + handguard.sizeY / 2, 10);
   });
 
   it("computes bounds that include rotated vertical parts", () => {
@@ -156,8 +156,8 @@ describe("layoutWeapon pricing", () => {
     ]);
 
     for (const part of result.layout) {
-      const major = majorAxisKinds.has(part.kind) ? part.width : part.length;
-      const minor = majorAxisKinds.has(part.kind) ? part.length : part.width;
+      const major = majorAxisKinds.has(part.kind) ? part.sizeY : part.sizeX;
+      const minor = majorAxisKinds.has(part.kind) ? part.sizeX : part.sizeY;
       const radians = (part.rotationDeg * Math.PI) / 180;
       const halfX =
         Math.abs(Math.cos(radians)) * (major / 2) +
@@ -173,7 +173,7 @@ describe("layoutWeapon pricing", () => {
     }
   });
 
-  it("copies bom part dimensionsMm to layout part length and width", () => {
+  it("copies bom part dimensionsMm to layout part sizeX and sizeY", () => {
     const receiver = new ReceiverPart("receiver-test");
     const barrel = new BarrelPart("barrel-test");
     const magwell = new MagwellPart("magwell-test");
@@ -187,18 +187,18 @@ describe("layoutWeapon pricing", () => {
     const muzzleDevice = new MuzzleDevicePart("muzzle-device-test");
     const frontGrip = new FrontGripPart("front-grip-test");
 
-    receiver.dimensionsMm = { length: mm(200), width: mm(50) };
-    barrel.dimensionsMm = { length: mm(400), width: mm(18) };
-    magwell.dimensionsMm = { length: mm(60), width: mm(30) };
-    magazine.dimensionsMm = { length: mm(180), width: mm(28) };
-    pistolGrip.dimensionsMm = { length: mm(100), width: mm(30) };
-    stock.dimensionsMm = { length: mm(250), width: mm(55) };
-    optic.dimensionsMm = { length: mm(80), width: mm(35) };
-    handguard.dimensionsMm = { length: mm(320), width: mm(45) };
-    laser.dimensionsMm = { length: mm(70), width: mm(22) };
-    flashlight.dimensionsMm = { length: mm(90), width: mm(26) };
-    muzzleDevice.dimensionsMm = { length: mm(45), width: mm(20) };
-    frontGrip.dimensionsMm = { length: mm(80), width: mm(28) };
+    receiver.dimensionsMm = { sizeX: mm(200), sizeY: mm(50) };
+    barrel.dimensionsMm = { sizeX: mm(400), sizeY: mm(18) };
+    magwell.dimensionsMm = { sizeX: mm(60), sizeY: mm(30) };
+    magazine.dimensionsMm = { sizeX: mm(180), sizeY: mm(28) };
+    pistolGrip.dimensionsMm = { sizeX: mm(100), sizeY: mm(30) };
+    stock.dimensionsMm = { sizeX: mm(250), sizeY: mm(55) };
+    optic.dimensionsMm = { sizeX: mm(80), sizeY: mm(35) };
+    handguard.dimensionsMm = { sizeX: mm(320), sizeY: mm(45) };
+    laser.dimensionsMm = { sizeX: mm(70), sizeY: mm(22) };
+    flashlight.dimensionsMm = { sizeX: mm(90), sizeY: mm(26) };
+    muzzleDevice.dimensionsMm = { sizeX: mm(45), sizeY: mm(20) };
+    frontGrip.dimensionsMm = { sizeX: mm(80), sizeY: mm(28) };
 
     const result = layoutWeapon(
       [
@@ -233,10 +233,10 @@ describe("layoutWeapon pricing", () => {
       ["frontGrip", 80, 28],
     ];
 
-    for (const [kind, expectedLength, expectedWidth] of cases) {
+    for (const [kind, expectedSizeX, expectedSizeY] of cases) {
       const layoutPart = getPart(result.layout, kind);
-      expect(layoutPart.length, `${kind} length`).toBe(expectedLength);
-      expect(layoutPart.width, `${kind} width`).toBe(expectedWidth);
+      expect(layoutPart.sizeX, `${kind} sizeX`).toBe(expectedSizeX);
+      expect(layoutPart.sizeY, `${kind} sizeY`).toBe(expectedSizeY);
     }
   });
 });

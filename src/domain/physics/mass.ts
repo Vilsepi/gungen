@@ -1,7 +1,7 @@
 import { grams, Grams, mm2, SquareMillimeters } from "../../core/types";
 
-export function computeArea(length: number, width: number): SquareMillimeters {
-  return mm2(length * width);
+export function computeArea(sizeX: number, sizeY: number): SquareMillimeters {
+  return mm2(sizeX * sizeY);
 }
 
 export function computeMass(area: SquareMillimeters, density: number): Grams {

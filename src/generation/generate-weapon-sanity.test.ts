@@ -8,8 +8,8 @@ interface MetricBounds {
   maxPriceUsd: number;
   minMassGrams: number;
   maxMassGrams: number;
-  minLengthMm: number;
-  maxLengthMm: number;
+  minSizeXMm: number;
+  maxSizeXMm: number;
 }
 
 const categoryMetricBounds: Record<WeaponCategory, MetricBounds> = {
@@ -18,56 +18,56 @@ const categoryMetricBounds: Record<WeaponCategory, MetricBounds> = {
     maxPriceUsd: 3500,
     minMassGrams: 500,
     maxMassGrams: 2000,
-    minLengthMm: 150,
-    maxLengthMm: 500,
+    minSizeXMm: 150,
+    maxSizeXMm: 500,
   },
   SMG: {
     minPriceUsd: 1000,
     maxPriceUsd: 4500,
     minMassGrams: 1800,
     maxMassGrams: 3500,
-    minLengthMm: 350,
-    maxLengthMm: 700,
+    minSizeXMm: 350,
+    maxSizeXMm: 700,
   },
   Carbine: {
     minPriceUsd: 800,
     maxPriceUsd: 4000,
     minMassGrams: 2500,
     maxMassGrams: 4200,
-    minLengthMm: 550,
-    maxLengthMm: 900,
+    minSizeXMm: 550,
+    maxSizeXMm: 900,
   },
   AssaultRifle: {
     minPriceUsd: 1200,
     maxPriceUsd: 4500,
     minMassGrams: 3000,
     maxMassGrams: 5000,
-    minLengthMm: 680,
-    maxLengthMm: 1030,
+    minSizeXMm: 680,
+    maxSizeXMm: 1030,
   },
   BattleRifle: {
     minPriceUsd: 2000,
     maxPriceUsd: 5500,
     minMassGrams: 3500,
     maxMassGrams: 5000,
-    minLengthMm: 750,
-    maxLengthMm: 1100,
+    minSizeXMm: 750,
+    maxSizeXMm: 1100,
   },
   DMR: {
     minPriceUsd: 2000,
     maxPriceUsd: 7000,
     minMassGrams: 3500,
     maxMassGrams: 6500,
-    minLengthMm: 850,
-    maxLengthMm: 1200,
+    minSizeXMm: 850,
+    maxSizeXMm: 1200,
   },
   Sniper: {
     minPriceUsd: 3000,
     maxPriceUsd: 15000,
     minMassGrams: 4000,
     maxMassGrams: 15000,
-    minLengthMm: 1000,
-    maxLengthMm: 1400,
+    minSizeXMm: 1000,
+    maxSizeXMm: 1400,
   },
 };
 
@@ -112,7 +112,7 @@ describe("generateWeapon sanity checks", () => {
       assertNoViolations(violations);
     });
 
-    it(`${category} samples stay within documented mass, price, and length bounds`, () => {
+    it(`${category} samples stay within documented mass, price, and sizeX bounds`, () => {
       const bounds = categoryMetricBounds[category];
       const violations: string[] = [];
 
@@ -121,7 +121,7 @@ describe("generateWeapon sanity checks", () => {
         const weapon = generateWeapon(seedBundle);
         const priceUsd = Number(weapon.metrics.totalPrice) / 100;
         const massGrams = Number(weapon.metrics.totalMass);
-        const lengthMm = Number(weapon.metrics.totalLength);
+        const sizeXMm = Number(weapon.metrics.totalSizeX);
 
         if (priceUsd < bounds.minPriceUsd || priceUsd > bounds.maxPriceUsd) {
           violations.push(
@@ -138,9 +138,9 @@ describe("generateWeapon sanity checks", () => {
           );
         }
 
-        if (lengthMm < bounds.minLengthMm || lengthMm > bounds.maxLengthMm) {
+        if (sizeXMm < bounds.minSizeXMm || sizeXMm > bounds.maxSizeXMm) {
           violations.push(
-            `${category} seed ${index} length ${lengthMm.toFixed(2)} mm is outside ${bounds.minLengthMm}-${bounds.maxLengthMm} mm.`,
+            `${category} seed ${index} sizeX ${sizeXMm.toFixed(2)} mm is outside ${bounds.minSizeXMm}-${bounds.maxSizeXMm} mm.`,
           );
         }
       }

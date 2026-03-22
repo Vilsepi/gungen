@@ -19,19 +19,17 @@ function resolveRange(
   const base = baseDimensionRanges[kind];
   const override = categoryPresets[category].dimensionOverrides[kind];
   return {
-    minLength: override?.minLength ?? base.minLength,
-    maxLength: override?.maxLength ?? base.maxLength,
-    minWidth: override?.minWidth ?? base.minWidth,
-    maxWidth: override?.maxWidth ?? base.maxWidth,
+    minSizeX: override?.minSizeX ?? base.minSizeX,
+    maxSizeX: override?.maxSizeX ?? base.maxSizeX,
+    minSizeY: override?.minSizeY ?? base.minSizeY,
+    maxSizeY: override?.maxSizeY ?? base.maxSizeY,
   };
 }
 
 function resolveDimensions(range: DimensionRangeMm, prng: Prng): DimensionsMm {
   return {
-    length: mm(
-      rangeFloat(prng, Number(range.minLength), Number(range.maxLength)),
-    ),
-    width: mm(rangeFloat(prng, Number(range.minWidth), Number(range.maxWidth))),
+    sizeX: mm(rangeFloat(prng, Number(range.minSizeX), Number(range.maxSizeX))),
+    sizeY: mm(rangeFloat(prng, Number(range.minSizeY), Number(range.maxSizeY))),
   };
 }
 
@@ -47,10 +45,7 @@ export function sizeParts(
       prng.fork(part.id.length * 2654435761),
     );
     part.dimensionsMm = dimensions;
-    part.area = computeArea(
-      Number(dimensions.length),
-      Number(dimensions.width),
-    );
+    part.area = computeArea(Number(dimensions.sizeX), Number(dimensions.sizeY));
     part.mass = computeMass(part.area, part.density);
   }
 }

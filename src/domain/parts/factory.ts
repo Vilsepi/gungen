@@ -20,12 +20,12 @@ class GenericPart extends Part {
     range: DimensionRangeMm,
   ) {
     const dimensionsMm: DimensionsMm = {
-      length: mm(Number(range.minLength)),
-      width: mm(Number(range.minWidth)),
+      sizeX: mm(Number(range.minSizeX)),
+      sizeY: mm(Number(range.minSizeY)),
     };
     const area = computeArea(
-      Number(dimensionsMm.length),
-      Number(dimensionsMm.width),
+      Number(dimensionsMm.sizeX),
+      Number(dimensionsMm.sizeY),
     );
     const mass = computeMass(area, partDensities[kind]);
     super({

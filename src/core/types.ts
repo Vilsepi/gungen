@@ -53,15 +53,15 @@ export type Grams = Brand<number, "Grams">;
 export type Cents = Brand<number, "Cents">;
 
 export interface DimensionsMm {
-  length: Millimeters;
-  width: Millimeters;
+  sizeX: Millimeters;
+  sizeY: Millimeters;
 }
 
 export interface DimensionRangeMm {
-  minLength: Millimeters;
-  maxLength: Millimeters;
-  minWidth: Millimeters;
-  maxWidth: Millimeters;
+  minSizeX: Millimeters;
+  maxSizeX: Millimeters;
+  minSizeY: Millimeters;
+  maxSizeY: Millimeters;
 }
 
 export interface AttachmentPointSpec {
@@ -97,8 +97,8 @@ export interface LayoutPart {
   x: number;
   y: number;
   rotationDeg: number;
-  length: number;
-  width: number;
+  sizeX: number;
+  sizeY: number;
   anchors: Record<string, LayoutAnchor>;
 }
 
@@ -112,8 +112,8 @@ export interface LayoutBounds {
 export interface WeaponMetrics {
   totalMass: Grams;
   totalPrice: Cents;
-  totalLength: Millimeters;
-  totalHeight: Millimeters;
+  totalSizeX: Millimeters;
+  totalSizeY: Millimeters;
 }
 
 export interface RenderDetailContext {
@@ -135,8 +135,8 @@ export interface WeaponSummaryItem {
   kind: PartKind;
   partLevel: PartLevel;
   displayName: string;
-  length: number;
-  width: number;
+  sizeX: number;
+  sizeY: number;
   mass: number;
 }
 
