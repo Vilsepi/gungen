@@ -7,6 +7,7 @@
     "dev": "vite src",
     "build": "vite build src --outDir ../dist --emptyOutDir",
     "preview": "vite preview src --outDir ../dist",
+    "render:svg": "tsx scripts/render-svg.mjs",
     "test": "vitest run",
     "lint": "npm run check && prettier --check \"src/**/*.{ts,js,css,html}\" \"*.{json,md}\"",
     "check": "tsc --noEmit",
@@ -14,6 +15,7 @@
   },
   "devDependencies": {
     "prettier": "^3.8.1",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "vitest": "^4.1.0",
     "vite": "^8.0.1"

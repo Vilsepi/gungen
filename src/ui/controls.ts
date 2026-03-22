@@ -52,6 +52,7 @@ export function renderControls(store: Store): string {
       <div class="inline-actions utility-actions">
         <button type="button" data-action="toggle-debug">${state.debug ? "Hide Debug" : "Show Debug"}</button>
         <button type="button" data-action="copy-seeds">Copy Seeds</button>
+        <button type="button" data-action="copy-render-command">Copy Render Command</button>
         <button type="button" data-action="export-svg">Export SVG</button>
       </div>
       <!--<p class="footnote"></p>-->

@@ -37,3 +37,6 @@ jobs:
 
       - name: Run build
         run: npm run build -- --base="/${{ github.event.repository.name }}/"
+
+      - name: Render SVG
+        run: npm run --silent render:svg

@@ -105,6 +105,15 @@ function copySeeds(store: Store): void {
   void navigator.clipboard.writeText(text);
 }
 
+function buildRenderCommand(seeds: SeedBundle): string {
+  return `npm run --silent render:svg -- --category=${seeds.category} --dataModelSeed=${seeds.dataModelSeed} --partSizeSeed=${seeds.partSizeSeed} --aestheticDetailSeed=${seeds.aestheticDetailSeed}`;
+}
+
+function copyRenderCommand(store: Store): void {
+  const { seeds } = store.getState();
+  void navigator.clipboard.writeText(buildRenderCommand(seeds));
+}
+
 function renderSummary(store: Store): string {
   const state = store.getState();
   const summaryItems = getSummaryItems(store);
@@ -170,6 +179,13 @@ function bindControls(root: HTMLElement, store: Store): void {
     .querySelector<HTMLButtonElement>("button[data-action='copy-seeds']")
     ?.addEventListener("click", () => {
       copySeeds(store);
+    });
+  root
+    .querySelector<HTMLButtonElement>(
+      "button[data-action='copy-render-command']",
+    )
+    ?.addEventListener("click", () => {
+      copyRenderCommand(store);
     });
   root
     .querySelector<HTMLButtonElement>("button[data-action='export-svg']")
