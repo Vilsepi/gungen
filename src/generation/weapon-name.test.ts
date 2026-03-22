@@ -23,7 +23,7 @@ describe("createWeaponName", () => {
       aestheticDetailSeed: "charlie",
     };
 
-    expect(createWeaponName(seeds)).toBe("MP-LWFW3K5CBTWEHUCWURAQ");
+    expect(createWeaponName(seeds)).toBe("MP-4C3HAUI");
   });
 
   it("uses only uppercase letters, digits, and a single dash", () => {
@@ -53,5 +53,16 @@ describe("createWeaponName", () => {
     expect(createWeaponName(baseSeeds)).not.toBe(
       createWeaponName(changedSeeds),
     );
+  });
+
+  it("keeps the suffix compact", () => {
+    const seeds: SeedBundle = {
+      category: "Sniper",
+      dataModelSeed: "alpha",
+      partSizeSeed: "bravo",
+      aestheticDetailSeed: "charlie",
+    };
+
+    expect(createWeaponName(seeds)).toMatch(/^S-[A-Z0-9]{7}$/u);
   });
 });
