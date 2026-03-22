@@ -12,7 +12,11 @@ function interpolateAlong(length: number, ratio: number): number {
   return -length / 2 + length * ratio;
 }
 
-function rotatePoint(x: number, y: number, rotationDeg: number): {
+function rotatePoint(
+  x: number,
+  y: number,
+  rotationDeg: number,
+): {
   x: number;
   y: number;
 } {
@@ -114,8 +118,8 @@ export function layoutWeapon(
     length: magwellLength,
     width: magwellWidth,
     anchors: {
-      host: { x: 0, y: -magwellWidth / 2 },
-      mag: { x: 0, y: magwellWidth / 2 },
+      host: { x: 0, y: -magwellLength / 2 },
+      mag: { x: 0, y: magwellLength / 2 },
     },
   });
 
@@ -200,9 +204,7 @@ export function layoutWeapon(
     const length = Number(part.dimensionsMm.length);
     const width = Number(part.dimensionsMm.width);
     const mount =
-      kind === "frontGrip"
-        ? { x: 0, y: -length / 2 }
-        : { x: 0, y: -width / 2 };
+      kind === "frontGrip" ? { x: 0, y: -length / 2 } : { x: 0, y: -width / 2 };
     const rotatedMount = rotatePoint(mount.x, mount.y, rotationDeg);
     const contactX = host.x + interpolateAlong(host.length, xRatio);
     const contactY =

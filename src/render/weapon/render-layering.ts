@@ -15,5 +15,5 @@ export const renderOrder: readonly PartKind[] = [
   "handguard",
   "laser",
   "receiver",
-  "optic"
+  "optic",
 ];

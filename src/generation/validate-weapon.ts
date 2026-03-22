@@ -39,11 +39,7 @@ export function validateWeapon(
     }
   }
 
-  const requiresHandguard: PartKind[] = [
-    "laser",
-    "flashlight",
-    "frontGrip",
-  ];
+  const requiresHandguard: PartKind[] = ["laser", "flashlight", "frontGrip"];
   if (
     requiresHandguard.some((kind) => kinds.has(kind)) &&
     !kinds.has("handguard")

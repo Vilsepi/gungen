@@ -1,7 +1,9 @@
 import { LayoutPart } from "../../core/types";
 
 function formatPartName(kind: LayoutPart["kind"]): string {
-  return kind.replace(/([A-Z])/g, " $1").replace(/^./, (match) => match.toUpperCase());
+  return kind
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^./, (match) => match.toUpperCase());
 }
 
 export function renderDebug(parts: LayoutPart[]): string {

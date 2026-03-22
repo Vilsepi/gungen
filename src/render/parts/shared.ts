@@ -1,6 +1,18 @@
 import { LayoutPart } from "../../core/types";
 import { transformTranslateRotate } from "../svg/transforms";
 
+export function renderPartGroup(
+  part: LayoutPart,
+  bodyClass: string,
+  content: string,
+): string {
+  return `
+    <g class="${bodyClass}" transform="${transformTranslateRotate(part.x, part.y, part.rotationDeg)}">
+      ${content}
+    </g>
+  `;
+}
+
 export function renderRoundedBody(
   part: LayoutPart,
   bodyClass: string,
@@ -8,12 +20,14 @@ export function renderRoundedBody(
   radiusFactor = 0.08,
 ): string {
   const rx = Math.max(1.5, part.width * radiusFactor);
-  return `
-    <g class="${bodyClass}" transform="${transformTranslateRotate(part.x, part.y, part.rotationDeg)}">
-      <rect x="${-part.length / 2}" y="${-part.width / 2}" width="${part.length}" height="${part.width}" rx="${rx}" />
+  return renderPartGroup(
+    part,
+    bodyClass,
+    `
+      <rect class="shell" x="${-part.length / 2}" y="${-part.width / 2}" width="${part.length}" height="${part.width}" rx="${rx}" />
       ${inner}
-    </g>
-  `;
+    `,
+  );
 }
 
 export function line(

@@ -24,7 +24,10 @@ function getPart(layout: LayoutPart[], kind: LayoutPart["kind"]): LayoutPart {
   return part;
 }
 
-function resolveAnchor(part: LayoutPart, anchor: LayoutAnchor): {
+function resolveAnchor(
+  part: LayoutPart,
+  anchor: LayoutAnchor,
+): {
   x: number;
   y: number;
 } {
@@ -107,10 +110,52 @@ describe("layoutWeapon pricing", () => {
       flashlight,
       getAnchor(flashlight, "mount"),
     );
-    expect(flashlightMount.y).toBeCloseTo(handguard.y + handguard.width / 2, 10);
+    expect(flashlightMount.y).toBeCloseTo(
+      handguard.y + handguard.width / 2,
+      10,
+    );
     expect(flashlight.x).toBeGreaterThanOrEqual(handguard.x);
 
-    const frontGripMount = resolveAnchor(frontGrip, getAnchor(frontGrip, "mount"));
+    const frontGripMount = resolveAnchor(
+      frontGrip,
+      getAnchor(frontGrip, "mount"),
+    );
     expect(frontGripMount.y).toBeCloseTo(handguard.y + handguard.width / 2, 10);
+  });
+
+  it("computes bounds that include rotated vertical parts", () => {
+    const result = layoutWeapon([
+      new ReceiverPart("receiver-test"),
+      new BarrelPart("barrel-test"),
+      new MagwellPart("magwell-test"),
+      new MagazinePart("magazine-test"),
+      new PistolGripPart("pistol-grip-test"),
+      new FrontGripPart("front-grip-test"),
+      new HandguardPart("handguard-test"),
+    ]);
+
+    const majorAxisKinds = new Set([
+      "magwell",
+      "magazine",
+      "pistolGrip",
+      "frontGrip",
+    ]);
+
+    for (const part of result.layout) {
+      const major = majorAxisKinds.has(part.kind) ? part.width : part.length;
+      const minor = majorAxisKinds.has(part.kind) ? part.length : part.width;
+      const radians = (part.rotationDeg * Math.PI) / 180;
+      const halfX =
+        Math.abs(Math.cos(radians)) * (major / 2) +
+        Math.abs(Math.sin(radians)) * (minor / 2);
+      const halfY =
+        Math.abs(Math.sin(radians)) * (major / 2) +
+        Math.abs(Math.cos(radians)) * (minor / 2);
+
+      expect(result.bounds.minX).toBeLessThanOrEqual(part.x - halfX);
+      expect(result.bounds.maxX).toBeGreaterThanOrEqual(part.x + halfX);
+      expect(result.bounds.minY).toBeLessThanOrEqual(part.y - halfY);
+      expect(result.bounds.maxY).toBeGreaterThanOrEqual(part.y + halfY);
+    }
   });
 });
