@@ -77,15 +77,15 @@ export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
 
 // These densities are not based on realistic materials, just chosen to output realistic masses based on the inaccurate dimensions.
 export const partDensities: Record<PartKind, number> = {
-  receiver: 0.062,
+  receiver: 0.066,
   barrel: 0.095,
   magwell: 0.06,
-  magazine: 0.06,
-  pistolGrip: 0.055,
+  magazine: 0.04,
+  pistolGrip: 0.053,
 
-  handguard: 0.085,
+  handguard: 0.068,
   stock: 0.09,
-  optic: 0.075,
+  optic: 0.069,
   laser: 0.06,
   flashlight: 0.06,
   muzzleDevice: 0.075,

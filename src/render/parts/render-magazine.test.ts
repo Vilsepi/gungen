@@ -23,7 +23,7 @@ function createStubPrng(values: number[]): Prng {
 }
 
 describe("renderMagazine", () => {
-  it("curves rifle magazines toward the rear in local coordinates", () => {
+  it("renders the current curved rifle magazine profile", () => {
     const part: LayoutPart = {
       partId: "magazine-test",
       kind: "magazine",
@@ -42,9 +42,10 @@ describe("renderMagazine", () => {
       "AssaultRifle",
     );
 
-    expect(markup).toContain("Q -30 0 -50 30");
-    expect(markup).toContain("Q -50 0 -10 -30");
+    expect(markup).toContain("Q -5 0 20 30");
+    expect(markup).toContain("L 0 30");
+    expect(markup).toContain("Q -25 0 -10 -30");
     expect(markup).not.toContain("Q 50 0 10 -30");
-    expect(markup).toContain('transform="rotate(-45 0 -30)"');
+    expect(markup).toContain('transform="rotate(0 0 -30)"');
   });
 });

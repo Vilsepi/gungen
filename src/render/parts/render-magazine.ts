@@ -8,9 +8,8 @@ export function renderMagazine(
   prng: Prng,
   category: WeaponCategory,
 ): string {
-
   // If a magazine is curved, it should be rotated towards the front.
-  const curvedRotationDeg = -40;
+  const curvedRotationDeg = 0;
 
   // Pistols always use straight magazines; long guns allow all profiles.
   const profileChoices =
@@ -33,12 +32,12 @@ export function renderMagazine(
     profile === "angled"
       ? rangeFloat(prng, -part.sizeX * 0.4, part.sizeX * 2.0)
       : profile === "curved"
-        ? -part.sizeX * 1.3
+        ? -part.sizeX * -0.5
         : 0;
 
   // Bezier control point horizontal offset for the curved profile.
   // A larger negative value creates a more pronounced rearward bow in the middle.
-  const curveCtrl = profile === "curved" ? -part.sizeX * 2.5 : 0;
+  const curveCtrl = profile === "curved" ? -part.sizeX * 0.75 : 0;
 
   // Returns the horizontal x-shift at normalized vertical position t (0=top, 1=bottom).
   // Both edges shift by the same amount, keeping the sizeY span constant.
