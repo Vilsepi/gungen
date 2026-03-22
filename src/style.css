@@ -74,7 +74,7 @@ select {
   color: var(--ink);
 }
 
-.shell {
+.app-shell {
   width: min(1400px, calc(100vw - 2rem));
   margin: 0 auto;
   padding: 1.25rem 0 2rem;
@@ -107,7 +107,7 @@ select {
   gap: 1rem;
 }
 
-.panel {
+.app-panel {
   background: var(--panel);
   border: 1px solid rgba(166, 210, 242, 0.12);
   box-shadow: var(--shadow);

@@ -203,7 +203,7 @@ function renderApp(root: HTMLElement, store: Store): void {
   const svg = renderWeaponSvg(state.weapon, { debug: state.debug });
   const weaponName = createWeaponName(state.seeds);
   root.innerHTML = `
-    <div class="shell">
+    <div class="app-shell">
       <header class="hero">
         <div>
           <h1>Gungen</h1>
@@ -211,15 +211,15 @@ function renderApp(root: HTMLElement, store: Store): void {
       </header>
 
       <main class="grid">
-        <aside class="panel controls">${renderControls(store)}</aside>
+        <aside class="app-panel controls">${renderControls(store)}</aside>
         <section class="preview">
-          <div class="panel canvas">
+          <div class="app-panel canvas">
             <div class="canvas-stage">
               <h2 class="weapon-name">${escapeHtml(weaponName)}</h2>
               <div class="canvas-frame">${svg}</div>
             </div>
           </div>
-          <div class="panel summary">${renderSummary(store)}</div>
+          <div class="app-panel summary">${renderSummary(store)}</div>
         </section>
       </main>
     </div>
