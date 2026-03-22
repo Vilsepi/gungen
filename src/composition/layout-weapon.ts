@@ -8,6 +8,23 @@ function partMap(parts: Part[]): Map<string, Part> {
   return new Map(parts.map((part) => [part.kind, part]));
 }
 
+function interpolateAlong(length: number, ratio: number): number {
+  return -length / 2 + length * ratio;
+}
+
+function rotatePoint(x: number, y: number, rotationDeg: number): {
+  x: number;
+  y: number;
+} {
+  const radians = (rotationDeg * Math.PI) / 180;
+  const cos = Math.cos(radians);
+  const sin = Math.sin(radians);
+  return {
+    x: x * cos - y * sin,
+    y: x * sin + y * cos,
+  };
+}
+
 export function layoutWeapon(
   parts: Part[],
 ): Pick<Weapon, "layout" | "bounds" | "metrics"> {
@@ -28,7 +45,7 @@ export function layoutWeapon(
   const barrelLength = Number(barrel.dimensionsMm.length);
   const barrelWidth = Number(barrel.dimensionsMm.width);
 
-  layout.push({
+  const receiverLayout: LayoutPart = {
     partId: receiver.id,
     kind: receiver.kind,
     x: 0,
@@ -42,7 +59,8 @@ export function layoutWeapon(
       front: { x: receiverLength / 2, y: 0 },
       rear: { x: -receiverLength / 2, y: 0 },
     },
-  });
+  };
+  layout.push(receiverLayout);
 
   const hasHandguard = byKind.has("handguard");
   const handguardLength = hasHandguard
@@ -51,8 +69,9 @@ export function layoutWeapon(
   const handguardWidth = hasHandguard
     ? Number(byKind.get("handguard")?.dimensionsMm.width ?? 0)
     : 0;
+  let handguardLayout: LayoutPart | undefined;
   if (hasHandguard) {
-    layout.push({
+    handguardLayout = {
       partId: byKind.get("handguard")!.id,
       kind: "handguard",
       x: receiverLength / 2 + handguardLength / 2 - 8,
@@ -66,7 +85,8 @@ export function layoutWeapon(
         bottom: { x: handguardLength * 0.15, y: handguardWidth / 2 },
         side: { x: handguardLength * 0.1, y: 0 },
       },
-    });
+    };
+    layout.push(handguardLayout);
   }
 
   layout.push({
@@ -155,7 +175,7 @@ export function layoutWeapon(
       partId: optic.id,
       kind: optic.kind,
       x: receiverLength * 0.02,
-      y: -(receiverWidth / 2 + opticWidth * 0.9),
+      y: receiverLayout.y - receiverLayout.width / 2 - opticWidth / 2,
       rotationDeg: 0,
       length: opticLength,
       width: opticWidth,
@@ -167,33 +187,44 @@ export function layoutWeapon(
 
   const placeGuardAccessory = (
     kind: "laser" | "flashlight" | "frontGrip",
-    xBias: number,
-    yBias: number,
+    xRatio: number,
+    hostSide: "top" | "bottom",
     rotationDeg: number,
   ) => {
     const part = byKind.get(kind);
     if (!part) {
       return;
     }
+
+    const host = handguardLayout ?? receiverLayout;
     const length = Number(part.dimensionsMm.length);
     const width = Number(part.dimensionsMm.width);
+    const mount =
+      kind === "frontGrip"
+        ? { x: 0, y: -length / 2 }
+        : { x: 0, y: -width / 2 };
+    const rotatedMount = rotatePoint(mount.x, mount.y, rotationDeg);
+    const contactX = host.x + interpolateAlong(host.length, xRatio);
+    const contactY =
+      host.y + (hostSide === "top" ? -host.width / 2 : host.width / 2);
+
     layout.push({
       partId: part.id,
       kind,
-      x: receiverLength / 2 + (hasHandguard ? handguardLength * xBias : 20),
-      y: yBias,
+      x: contactX - rotatedMount.x,
+      y: contactY - rotatedMount.y,
       rotationDeg,
       length,
       width,
       anchors: {
-        mount: { x: 0, y: -width / 2 },
+        mount,
       },
     });
   };
 
-  placeGuardAccessory("laser", 0.25, -(receiverWidth / 2 + 18), 0);
-  placeGuardAccessory("flashlight", 0.18, receiverWidth / 2 + 22, 0);
-  placeGuardAccessory("frontGrip", 0.42, receiverWidth / 2 + 48, 6);
+  placeGuardAccessory("laser", 0.25, "top", 0);
+  placeGuardAccessory("flashlight", 0.18, "bottom", 0);
+  placeGuardAccessory("frontGrip", 0.42, "bottom", 6);
 
   const muzzleDevice = byKind.get("muzzleDevice");
   if (muzzleDevice) {
