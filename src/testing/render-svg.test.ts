@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import { generateWeapon } from "../generation/generate-weapon";
+import { renderWeaponSvg } from "../render/weapon/render-weapon";
 import { renderSvgCanvas, resolveRenderSeeds } from "./render-svg";
 
 describe("resolveRenderSeeds", () => {
@@ -64,5 +66,70 @@ describe("renderSvgCanvas", () => {
     } as const;
 
     expect(renderSvgCanvas(input)).toBe(renderSvgCanvas(input));
+  });
+});
+
+describe("renderWeaponSvg dimensions", () => {
+  it("svg element sizes match bom part dimensions within centimeter precision", () => {
+    const CM_PRECISION_MM = 10;
+    const seedBundle = {
+      category: "AssaultRifle",
+      dataModelSeed: "5f930404",
+      partSizeSeed: "a784b217",
+      aestheticDetailSeed: "44c43249",
+    } as const;
+    const weapon = generateWeapon(seedBundle);
+    const svg = renderWeaponSvg(weapon, { debug: false });
+
+    for (const layoutPart of weapon.layout) {
+      const bomPart = weapon.parts.find((p) => p.id === layoutPart.partId);
+      expect(bomPart, `bom part for ${layoutPart.kind}`).toBeDefined();
+      const expectedLength = Number(bomPart!.dimensionsMm.length);
+      const expectedWidth = Number(bomPart!.dimensionsMm.width);
+
+      expect(layoutPart.length, `${layoutPart.kind} layout length`).toBeCloseTo(
+        expectedLength,
+        1,
+      );
+      expect(layoutPart.width, `${layoutPart.kind} layout width`).toBeCloseTo(
+        expectedWidth,
+        1,
+      );
+
+      // Convert camelCase kind (e.g. "muzzleDevice") to kebab-case (e.g. "muzzle-device")
+      // to match the CSS class name used in the rendered SVG part group.
+      const kebabKind = layoutPart.kind.replace(
+        /([A-Z])/gu,
+        (c) => `-${c.toLowerCase()}`,
+      );
+
+      // Match the part group opening tag and the first shell element inside it.
+      // The group is identified by either the camelCase or kebab-case class name.
+      const partGroupPattern = new RegExp(
+        `class="part [^"]*(?:${layoutPart.kind}|${kebabKind})[^"]*"[^>]*transform="[^"]*"[\\s\\S]*?<(?:rect|path|ellipse)[^>]*class="shell"[^>]*>`,
+        "u",
+      );
+      const groupMatch = partGroupPattern.exec(svg);
+
+      if (groupMatch) {
+        const shellElement = groupMatch[0];
+
+        const widthMatch = /\bwidth="([\d.eE+-]+)"/.exec(shellElement);
+        const heightMatch = /\bheight="([\d.eE+-]+)"/.exec(shellElement);
+
+        if (widthMatch?.[1] && heightMatch?.[1]) {
+          const svgWidth = parseFloat(widthMatch[1]);
+          const svgHeight = parseFloat(heightMatch[1]);
+          expect(
+            Math.abs(svgWidth - expectedLength),
+            `${layoutPart.kind} svg shell rect width vs bom length`,
+          ).toBeLessThan(CM_PRECISION_MM);
+          expect(
+            Math.abs(svgHeight - expectedWidth),
+            `${layoutPart.kind} svg shell rect height vs bom width`,
+          ).toBeLessThan(CM_PRECISION_MM);
+        }
+      }
+    }
   });
 });

@@ -4,7 +4,7 @@ import {
   partLevelPriceMultipliers,
   partPricePerGramCents,
 } from "../core/constants";
-import { LayoutAnchor, LayoutPart } from "../core/types";
+import { LayoutAnchor, LayoutPart, mm } from "../core/types";
 import {
   BarrelPart,
   FlashlightPart,
@@ -13,9 +13,11 @@ import {
   LaserPart,
   MagwellPart,
   MagazinePart,
+  MuzzleDevicePart,
   OpticPart,
   PistolGripPart,
   ReceiverPart,
+  StockPart,
 } from "../domain/parts/factory";
 import { layoutWeapon } from "./layout-weapon";
 
@@ -162,6 +164,70 @@ describe("layoutWeapon pricing", () => {
       expect(result.bounds.maxX).toBeGreaterThanOrEqual(part.x + halfX);
       expect(result.bounds.minY).toBeLessThanOrEqual(part.y - halfY);
       expect(result.bounds.maxY).toBeGreaterThanOrEqual(part.y + halfY);
+    }
+  });
+
+  it("copies bom part dimensionsMm to layout part length and width", () => {
+    const receiver = new ReceiverPart("receiver-test");
+    const barrel = new BarrelPart("barrel-test");
+    const magwell = new MagwellPart("magwell-test");
+    const magazine = new MagazinePart("magazine-test");
+    const pistolGrip = new PistolGripPart("pistol-grip-test");
+    const stock = new StockPart("stock-test");
+    const optic = new OpticPart("optic-test");
+    const handguard = new HandguardPart("handguard-test");
+    const laser = new LaserPart("laser-test");
+    const flashlight = new FlashlightPart("flashlight-test");
+    const muzzleDevice = new MuzzleDevicePart("muzzle-device-test");
+    const frontGrip = new FrontGripPart("front-grip-test");
+
+    receiver.dimensionsMm = { length: mm(200), width: mm(50) };
+    barrel.dimensionsMm = { length: mm(400), width: mm(18) };
+    magwell.dimensionsMm = { length: mm(60), width: mm(30) };
+    magazine.dimensionsMm = { length: mm(180), width: mm(28) };
+    pistolGrip.dimensionsMm = { length: mm(100), width: mm(30) };
+    stock.dimensionsMm = { length: mm(250), width: mm(55) };
+    optic.dimensionsMm = { length: mm(80), width: mm(35) };
+    handguard.dimensionsMm = { length: mm(320), width: mm(45) };
+    laser.dimensionsMm = { length: mm(70), width: mm(22) };
+    flashlight.dimensionsMm = { length: mm(90), width: mm(26) };
+    muzzleDevice.dimensionsMm = { length: mm(45), width: mm(20) };
+    frontGrip.dimensionsMm = { length: mm(80), width: mm(28) };
+
+    const result = layoutWeapon([
+      receiver,
+      barrel,
+      magwell,
+      magazine,
+      pistolGrip,
+      stock,
+      optic,
+      handguard,
+      laser,
+      flashlight,
+      muzzleDevice,
+      frontGrip,
+    ]);
+
+    const cases: Array<[LayoutPart["kind"], number, number]> = [
+      ["receiver", 200, 50],
+      ["barrel", 400, 18],
+      ["magwell", 60, 30],
+      ["magazine", 180, 28],
+      ["pistolGrip", 100, 30],
+      ["stock", 250, 55],
+      ["optic", 80, 35],
+      ["handguard", 320, 45],
+      ["laser", 70, 22],
+      ["flashlight", 90, 26],
+      ["muzzleDevice", 45, 20],
+      ["frontGrip", 80, 28],
+    ];
+
+    for (const [kind, expectedLength, expectedWidth] of cases) {
+      const layoutPart = getPart(result.layout, kind);
+      expect(layoutPart.length, `${kind} length`).toBe(expectedLength);
+      expect(layoutPart.width, `${kind} width`).toBe(expectedWidth);
     }
   });
 });
