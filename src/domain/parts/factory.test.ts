@@ -11,7 +11,6 @@ import { sizeParts } from "../../generation/size-parts";
 import { createPrng } from "../../random/prng";
 import {
   FlashlightPart,
-  HandStopPart,
   MagazinePart,
   ReceiverPart,
   partConstructors,
@@ -79,11 +78,11 @@ describe("part factory weights", () => {
     const receiver = new ReceiverPart("receiver-test");
     const magazine = new MagazinePart("magazine-test");
     const flashlight = new FlashlightPart("flashlight-test");
-    const handStop = new HandStopPart("handstop-test");
+    const frontGrip = new partConstructors.frontGrip("frontgrip-test");
 
     expect(Number(receiver.weight)).toBeGreaterThan(Number(magazine.weight));
     expect(Number(magazine.weight)).toBeGreaterThan(Number(flashlight.weight));
-    expect(Number(flashlight.weight)).toBeGreaterThan(Number(handStop.weight));
+    expect(Number(flashlight.weight)).toBeGreaterThan(Number(frontGrip.weight));
   });
 
   it("keeps randomly generated part dimensions and weights within realistic ranges", () => {

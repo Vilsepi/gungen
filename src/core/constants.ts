@@ -73,12 +73,6 @@ export const baseDimensionRanges: Record<PartKind, DimensionRangeMm> = {
     minWidth: mm(18),
     maxWidth: mm(34),
   },
-  handStop: {
-    minLength: mm(18),
-    maxLength: mm(58),
-    minWidth: mm(10),
-    maxWidth: mm(26),
-  },
 };
 
 export const partDensities: Record<PartKind, number> = {
@@ -95,7 +89,6 @@ export const partDensities: Record<PartKind, number> = {
   flashlight: 0.05,
   muzzleDevice: 0.05,
   frontGrip: 0.05,
-  handStop: 0.05,
 };
 
 export const partPricePerGramCents: Record<PartKind, number> = {
@@ -111,7 +104,6 @@ export const partPricePerGramCents: Record<PartKind, number> = {
   flashlight: 140,
   muzzleDevice: 160,
   frontGrip: 85,
-  handStop: 70,
 };
 
 export const corePartKinds: readonly PartKind[] = [
@@ -130,5 +122,4 @@ export const accessoryPartKinds: readonly PartKind[] = [
   "stock",
   "handguard",
   "frontGrip",
-  "handStop",
 ];

@@ -107,7 +107,7 @@ export const HandguardPart = createPartClass("handguard", "Handguard", [
   {
     id: "bottom",
     kind: "bottom",
-    allowedPartKinds: ["flashlight", "frontGrip", "handStop", "laser"],
+    allowedPartKinds: ["flashlight", "frontGrip", "laser"],
     maxConnections: 3,
   },
   {
@@ -209,15 +209,6 @@ export const FrontGripPart = createPartClass("frontGrip", "Front Grip", [
   },
 ]);
 
-export const HandStopPart = createPartClass("handStop", "Hand Stop", [
-  {
-    id: "mount",
-    kind: "top",
-    allowedPartKinds: ["handguard"],
-    maxConnections: 1,
-  },
-]);
-
 export const partConstructors: Record<PartKind, new (id: string) => Part> = {
   receiver: ReceiverPart,
   barrel: BarrelPart,
@@ -231,5 +222,4 @@ export const partConstructors: Record<PartKind, new (id: string) => Part> = {
   flashlight: FlashlightPart,
   muzzleDevice: MuzzleDevicePart,
   frontGrip: FrontGripPart,
-  handStop: HandStopPart,
 };

@@ -9,7 +9,6 @@ export const renderOrder: readonly PartKind[] = [
   "flashlight",
 
   "frontGrip",
-  "handStop",
 
   "magazine",
   "magwell",

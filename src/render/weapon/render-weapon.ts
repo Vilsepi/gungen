@@ -8,7 +8,6 @@ import { renderBarrel } from "../parts/render-barrel";
 import { renderFlashlight } from "../parts/render-flashlight";
 import { renderFrontGrip } from "../parts/render-front-grip";
 import { renderHandguard } from "../parts/render-handguard";
-import { renderHandStop } from "../parts/render-hand-stop";
 import { renderLaser } from "../parts/render-laser";
 import { renderMagazine } from "../parts/render-magazine";
 import { renderMagwell } from "../parts/render-magwell";
@@ -38,7 +37,6 @@ const renderers: Record<PartKind, PartRenderer> = {
   flashlight: (part) => renderFlashlight(part),
   muzzleDevice: (part, prng) => renderMuzzleDevice(part, prng),
   frontGrip: (part) => renderFrontGrip(part),
-  handStop: (part) => renderHandStop(part),
 };
 
 export function renderWeaponSvg(

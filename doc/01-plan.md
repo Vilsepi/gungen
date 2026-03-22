@@ -68,7 +68,6 @@ src/
       flashlight.ts
       muzzle-device.ts
       front-grip.ts
-      hand-stop.ts
     bom/
       weapon.ts
       weapon-node.ts
@@ -113,7 +112,6 @@ src/
       render-flashlight.ts
       render-muzzle-device.ts
       render-front-grip.ts
-      render-hand-stop.ts
     weapon/
       render-weapon.ts
       render-layering.ts
@@ -143,7 +141,7 @@ Notes:
 Define these first:
 
 - `WeaponCategory`: `Pistol | SMG | Carbine | AssaultRifle | BattleRifle | DMR | Sniper`
-- `PartKind`: receiver, barrel, magwell, magazine, pistolGrip, handguard, stock, optic, laser, flashlight, muzzleDevice, frontGrip, handStop
+- `PartKind`: receiver, barrel, magwell, magazine, pistolGrip, handguard, stock, optic, laser, flashlight, muzzleDevice, frontGrip
 - `AttachmentPointKind`: top, bottom, front, back, barrelStart, barrelEnd, magIn, magOut, side, rear
 - `SeedBundle`: category, dataModelSeed, partSizeSeed, aestheticDetailSeed
 - `Millimeters`, `SquareMillimeters`, `Grams` as branded numeric aliases or strongly documented numeric types

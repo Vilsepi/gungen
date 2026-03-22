@@ -19,7 +19,6 @@ export function selectAttachments(
 
   if (
     selected.has("frontGrip") ||
-    selected.has("handStop") ||
     selected.has("laser") ||
     selected.has("flashlight")
   ) {
@@ -32,14 +31,6 @@ export function selectAttachments(
 
   if ((category === "DMR" || category === "Sniper") && !selected.has("optic")) {
     selected.add("optic");
-  }
-
-  if (selected.has("frontGrip") && selected.has("handStop")) {
-    if (chance(prng, 0.5)) {
-      selected.delete("handStop");
-    } else {
-      selected.delete("frontGrip");
-    }
   }
 
   return [...selected];

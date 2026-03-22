@@ -68,9 +68,6 @@ function buildConnections(
   if (selectedKinds.has("frontGrip")) {
     connect("frontGrip", "mount", "handguard", "bottom");
   }
-  if (selectedKinds.has("handStop")) {
-    connect("handStop", "mount", "handguard", "bottom");
-  }
 
   return connections;
 }

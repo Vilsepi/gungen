@@ -23,7 +23,6 @@ export const partKinds = [
   "flashlight",
   "muzzleDevice",
   "frontGrip",
-  "handStop",
 ] as const;
 
 export type PartKind = (typeof partKinds)[number];

@@ -12,7 +12,6 @@ const longGunParts = [
   "flashlight",
   "muzzleDevice",
   "frontGrip",
-  "handStop",
 ] as const;
 
 export const categoryPresets: Record<WeaponCategory, CategoryPreset> = {
@@ -41,7 +40,6 @@ export const categoryPresets: Record<WeaponCategory, CategoryPreset> = {
       "muzzleDevice",
       "handguard",
       "frontGrip",
-      "handStop",
     ],
     attachmentWeights: categoryAttachmentWeights.SMG,
     dimensionOverrides: categoryDimensionRules.SMG,

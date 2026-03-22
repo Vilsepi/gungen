@@ -166,7 +166,7 @@ export function layoutWeapon(
   }
 
   const placeGuardAccessory = (
-    kind: "laser" | "flashlight" | "frontGrip" | "handStop",
+    kind: "laser" | "flashlight" | "frontGrip",
     xBias: number,
     yBias: number,
     rotationDeg: number,
@@ -194,7 +194,6 @@ export function layoutWeapon(
   placeGuardAccessory("laser", 0.25, -(receiverWidth / 2 + 18), 0);
   placeGuardAccessory("flashlight", 0.18, receiverWidth / 2 + 22, 0);
   placeGuardAccessory("frontGrip", 0.42, receiverWidth / 2 + 48, 6);
-  placeGuardAccessory("handStop", 0.45, receiverWidth / 2 + 24, 0);
 
   const muzzleDevice = byKind.get("muzzleDevice");
   if (muzzleDevice) {

@@ -43,7 +43,6 @@ export function validateWeapon(
     "laser",
     "flashlight",
     "frontGrip",
-    "handStop",
   ];
   if (
     requiresHandguard.some((kind) => kinds.has(kind)) &&
