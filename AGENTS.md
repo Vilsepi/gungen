@@ -1,4 +1,3 @@
-
 # Testing code changes
 
 Once you have implemented code changes, run autoformatter, linter and unit tests.
